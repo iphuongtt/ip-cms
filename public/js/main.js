@@ -8,3 +8,5 @@ $('.menu-extent').click(function(){
 	$('.sidebar-extent').show();
 	$('.container-content').css('margin-left','172px');
 });
+
+$('.tip').tooltip();

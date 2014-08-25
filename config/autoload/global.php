@@ -15,8 +15,8 @@ return array(
     'db'=>array(
     	'driver'=>'Pdo',
     	'dsn'=>'mysql:dbname=ip-cms;host=localhost:3307',
-    	'username'=>'root',
-    	'password'=>'phuongdo',
+    	'username'=>'iphuong',
+    	'password'=>'admin',
     	'driver_options'=>array(
     		PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES \'UTF8\''
     	),

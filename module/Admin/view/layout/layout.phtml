@@ -26,7 +26,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#">IP-Hệ Quản Trị Nội Dung</a>
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
@@ -47,15 +47,6 @@
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 <span class="glyphicon glyphicon-dashboard"></span> Quản trị
               </a>
-              <ul class="dropdown-menu" role="menu">
-                <li><a href="#">Action</a></li>
-                <li><a href="#">Another action</a></li>
-                <li><a href="#">Something else here</a></li>
-                <li class="divider"></li>
-                <li><a href="#">Separated link</a></li>
-                <li class="divider"></li>
-                <li><a href="#">One more separated link</a></li>
-              </ul>
             </li>
             <li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-pushpin"></span> Bài viết</a>
               <ul class="dropdown-menu dropdown-menu-extent" role="menu">
@@ -113,17 +104,19 @@
                 <li><a href="#">Thêm mới</a></li>
               </ul> 
             </li>
-            <li><a href="#"><span class="glyphicon glyphicon-tags"></span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-picture"></span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-book"></span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-comment"></span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-user"></span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-globe"></span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-cog"></span></a></li>       
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Tags"><span class="glyphicon glyphicon-tags"></span></a></li>
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Media"><span class="glyphicon glyphicon-picture"></span></a></li>
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Trang"><span class="glyphicon glyphicon-book"></span></a></li>
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Bình luận"><span class="glyphicon glyphicon-comment"></span></a></li>
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Người sử dụng"><span class="glyphicon glyphicon-user"></span></a></li>
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Giao diện"><span class="glyphicon glyphicon-globe"></span></a></li>
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Cài đặt"><span class="glyphicon glyphicon-cog"></span></a></li>       
             <li><a class = "menu-extent" href="#"><span class="glyphicon glyphicon-arrow-right"></span></a></li>         
           </ul>          
         </div>
     <div class="container-fluid container-content">
+      <!-- HTML to write -->
+      <a href="#" class="tip" data-toggle="tooltip" data-placement="bottom" title="Some tooltip text!">Hover over me</a>
       <div class="row">        
         <div class="col-sm-12 col-md-12 main">
           <h1 class="page-header">Hoạt động</h1>
@@ -269,8 +262,5 @@
             ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
         ; ?>
         <?php echo $this->inlineScript() ?>
-        <script type="text/javascript">
-          
-        </script>
     </body>
 </html>
