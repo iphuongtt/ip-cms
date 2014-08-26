@@ -124,3 +124,7 @@ body {
 .dropdown-menu-collapse{
   left: 41px;
 }
+section.login{
+  width: 450px;
+  margin: 0 auto;
+}

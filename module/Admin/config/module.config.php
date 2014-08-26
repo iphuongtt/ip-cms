@@ -73,7 +73,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Admin\Controller\Index' => 'Admin\Controller\IndexController'
+            'Admin\Controller\Index' => 'Admin\Controller\IndexController',
+            'Admin\Controller\Login' => 'Admin\Controller\LoginController',
         ),
     ),
     'view_manager' => array(
@@ -84,7 +85,8 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
             'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'admin/index/index' => __DIR__ . '/../view/admin/index/index.phtml',
+            'layout/login'            => __DIR__ . '/../view/layout/login.phtml',
+            'admin/index/index'       => __DIR__ . '/../view/admin/index/index.phtml',
             'error/404'               => __DIR__ . '/../view/error/404.phtml',
             'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),

@@ -16,10 +16,12 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
+    	echo 'Index controller - index Action';exit;
         return new ViewModel();
     }
 	public function testAction()
     {
+    	echo 'Index controller - test Action';exit;
         return new ViewModel();
     }
 }
