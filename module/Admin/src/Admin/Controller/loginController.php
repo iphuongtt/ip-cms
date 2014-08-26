@@ -9,11 +9,16 @@
 
 namespace Admin\Controller;
 
-use Zend\Mvc\Controller\AbstractActionController;
-use Zend\View\Model\ViewModel;
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Adapter\DbTable As DbTableAuthAdapter;
 
 class LoginController extends AbstractActionController
 {
+	public function getAuthService(){
+		if(!$this->authservice){
+			$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
+		}
+	}
     public function indexAction()
     {
         return new ViewModel();
