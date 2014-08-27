@@ -13,8 +13,8 @@ class LoginForm extends Form{
 			'attributes'=> array(
 				'type'=>'text',
 				'required'=>'required',
-				'class'=>'form-control',
-				'placeholder'=>'Tên đăng nhập'
+				'class'=>'form-control focus',
+				'placeholder'=>'Tên đăng nhập',
 			),
 			'options'=> array(
 				'label' => 'Tên đăng nhập',

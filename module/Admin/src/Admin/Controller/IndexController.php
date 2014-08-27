@@ -14,14 +14,16 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
+    public function __construct(){
+        echo 'aaa';
+    }
     public function indexAction()
-    {
-    	echo 'Index controller - index Action';exit;
+    {    	
+        $sessionUser = new \Zend\Session\Container('user');
         return new ViewModel();
     }
 	public function testAction()
     {
-    	echo 'Index controller - test Action';exit;
         return new ViewModel();
     }
 }

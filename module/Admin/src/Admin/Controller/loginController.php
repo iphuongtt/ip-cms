@@ -16,6 +16,7 @@ use Zend\View\Model\ViewModel;
 use Admin\Form\LoginForm;
 class LoginController extends AbstractActionController
 {
+	private $authservice;
 	public function getAuthService(){
 		if(!$this->authservice){
 			$dbAdapter = $this->getServiceLocator()->get('Zend\Db\Adapter\Adapter');
@@ -26,18 +27,28 @@ class LoginController extends AbstractActionController
 		}
 		return $this->authservice;
 	}
-	public function processAction(){
+	public function dologinAction(){
 		$this->getAuthService()->getAdapter()->setIdentity($this->request->getPost('user_name'))
-											 ->setCredentical($this->request->getPost('password'));
+											 ->setCredential($this->request->getPost('password'));
 		$result = $this->getAuthService()->authenticate();
-		exit;
 		if($result->isValid()){
 			$this->getAuthService()->getStorage()->write($this->request->getPost('user_name'));
-			return $this->redirect()->toRouter(NULL, array(
+			$sessionUser = new \Zend\Session\Container('user');
+			$sessionUser->login = true;
+			return $this->redirect()->toRoute(NULL, array(
 				'controller' => 'index',
 				'action'=> 'index',
 				));
-		}
+		}else{			
+			$form = new LoginForm();
+			$model = new ViewModel(array(
+				'error'=>true,
+				'form'=>$form,
+				));
+			$this->layout('layout/login');
+			$model->setTemplate('admin/login/index');
+			return $model;
+		}		
 	}
     public function indexAction()
     {

@@ -10,3 +10,4 @@ $('.menu-extent').click(function(){
 });
 
 $('.tip').tooltip();
+$('.focus').focus();

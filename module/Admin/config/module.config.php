@@ -48,6 +48,16 @@ return array(
                             ),
                         ),
                     ),
+                    'login' => array( 
+                         'type' => 'Segment', 
+                         'options' => array( 
+                             'route' => 'login', 
+                             'defaults' => array( 
+                                 'controller' => 'Admin\Controller\Login', 
+                                 'action'     => 'index', 
+                             ), 
+                         ), 
+                     ), 
                 ),
             ),
         ),
