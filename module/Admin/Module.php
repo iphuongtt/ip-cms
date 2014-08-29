@@ -11,9 +11,15 @@ namespace Admin;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use ip\View\Helper\ListViewToolbar;
 use Zend\Session\Config\SessionConfig;
 use Zend\Session\Container;
 use Zend\Session\SessionManager;
+
+use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+use Zend\Authentication\Storage;
+use Zend\Authentication\AuthenticationService;
+use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
 class Module
 {
     public function onBootstrap(MvcEvent $e)
@@ -30,29 +36,6 @@ class Module
                 'Zend\Session\Validator\HttpUserAgent',
             )
         ));
-        $sessionUser = new \Zend\Session\Container('user');
-        if(!$sessionUser->login){            
-            //  Assuming your login route has a name 'login', this will do the assembly
-            // (you can also use directly $url=/path/to/login)
-            $url = $e->getRouter();
-            $response=$e->getResponse();
-            $response->getHeaders()->addHeaderLine('Location', $url);
-            $response->setStatusCode(302);
-            $response->sendHeaders();
-            // When an MvcEvent Listener returns a Response object,
-            // It automatically short-circuit the Application running 
-            // -> true only for Route Event propagation see Zend\Mvc\Application::run
-
-            // To avoid additional processing
-            // we can attach a listener for Event Route with a high priority
-            $stopCallBack = function($event) use ($response){
-                $event->stopPropagation();
-                return $response;
-            };
-            //Attach the "break" as a listener with a high priority
-            $e->getApplication()->getEventManager()->attach(MvcEvent::EVENT_ROUTE, $stopCallBack,-10000);
-            return $response;
-        }
     }
 
     public function getConfig()
@@ -76,5 +59,22 @@ class Module
         $sessionManager = new sessionManager($sessionConfig);
         $sessionManager->start();
         Container::setDefaultManager($sessionManager);
+    }
+    public function getServiceConfig(){
+        return array(
+            'factories'=>array(
+            'Admin\Model\LoginStorage' => function($sm){
+                return new \Admin\Model\LoginStorage('session_login');  
+            },
+            'AuthService' => function($sm) {
+                $dbAdapter  = $sm->get('Zend\Db\Adapter\Adapter');
+                $dbTableAuthAdapter  = new DbTableAuthAdapter($dbAdapter, 'ip_users','user_login','user_pass', 'MD5(?)');
+                $authService = new AuthenticationService();
+                $authService->setAdapter($dbTableAuthAdapter);
+                $authService->setStorage($sm->get('Admin\Model\LoginStorage'));  
+                return $authService;
+            },
+                ),
+        );
     }
 }

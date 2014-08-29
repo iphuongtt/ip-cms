@@ -19,6 +19,7 @@ class IndexController extends AbstractActionController
     }
     public function indexAction()
     {    	
+        echo 'controller: index <br> action: index';exit;
         $sessionUser = new \Zend\Session\Container('user');
         return new ViewModel();
     }

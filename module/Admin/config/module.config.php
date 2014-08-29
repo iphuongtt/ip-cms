@@ -20,6 +20,33 @@ return array(
                     ),
                 ),
             ),
+            'login' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route'    => '/login',
+                    'defaults' => array(
+                        'controller' => 'Admin\Controller\Login',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+            'category-list' => array(
+                'type'    => 'segment',
+                'options' => array(
+                    'route'    => '/admin/login/test[/status/:status][/page/:page][/perPage/:perPage][/sortBy/:sortBy][/sortDir/:sortDir][/filterLetter/:filterLetter]',
+                    'defaults' => array(
+                        '__NAMESPACE__' => 'Admin\Controller',
+                        'controller'    => 'Login',
+                        'action'        => 'test',
+                        'status' => 'all',
+                        'page' => 1,
+                        'perPage' => 10,
+                        'sortBy' => "category-name",
+                        'sortDir' => "asc",
+                        'filterLetter' => "",
+                    ),
+                ),
+            ), 
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -48,16 +75,6 @@ return array(
                             ),
                         ),
                     ),
-                    'login' => array( 
-                         'type' => 'Segment', 
-                         'options' => array( 
-                             'route' => 'login', 
-                             'defaults' => array( 
-                                 'controller' => 'Admin\Controller\Login', 
-                                 'action'     => 'index', 
-                             ), 
-                         ), 
-                     ), 
                 ),
             ),
         ),
