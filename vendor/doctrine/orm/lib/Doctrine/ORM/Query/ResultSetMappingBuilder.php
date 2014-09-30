@@ -142,8 +142,8 @@ class ResultSetMappingBuilder extends ResultSetMapping
         $classMetadata = $this->em->getClassMetadata($class);
         $platform      = $this->em->getConnection()->getDatabasePlatform();
 
-        if ( ! $this->isInheritanceSupported($classMetadata)) {
-            throw new \InvalidArgumentException('ResultSetMapping builder does not currently support your inheritance scheme.');
+        if ($classMetadata->isInheritanceTypeSingleTable() || $classMetadata->isInheritanceTypeJoined()) {
+            throw new \InvalidArgumentException('ResultSetMapping builder does not currently support inheritance.');
         }
 
 
@@ -177,16 +177,6 @@ class ResultSetMappingBuilder extends ResultSetMapping
                 }
             }
         }
-    }
-
-    private function isInheritanceSupported(ClassMetadataInfo $classMetadata)
-    {
-        if ($classMetadata->isInheritanceTypeSingleTable()
-            && in_array($classMetadata->name, $classMetadata->discriminatorMap, true)) {
-            return true;
-        }
-
-        return ! ($classMetadata->isInheritanceTypeSingleTable() || $classMetadata->isInheritanceTypeJoined());
     }
 
     /**

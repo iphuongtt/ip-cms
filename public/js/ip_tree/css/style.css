@@ -1,0 +1,146 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    border: 0 none;
+    margin: 0;
+    outline: 0 none;
+    padding: 0;
+}
+div.folderlist_content ul li, div.myaccountlist_content ul li {
+    font-size: 11px;
+}
+a:visited {
+  text-decoration: none;
+}
+a:hover, a:focus {
+  text-decoration: none;
+  outline: none;
+}
+a{
+    outline:none;
+}
+#iptree {
+    font-family: "Open Sans",sans-serif;
+    overflow: hidden;
+}
+
+#folderTree div.folderlist_content {
+    max-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0;
+    position: relative;
+    z-index: 4;
+}
+div.folderlist_content ul, div.myaccountlist_content ul {
+    position: relative;
+    z-index: 5;
+}
+.folderlist_content > ul {
+    padding-bottom: 29px;
+}
+ol, ul {
+    list-style: none outside none;
+}
+div.folderlist_content ul li, div.myaccountlist_content ul li {
+    font-size: 11px;
+    margin-left: 10px;
+    padding: 0;
+    position: relative;
+    z-index: 6;
+}
+
+div.folderlist_content ul li a.folder_arrow, div.myaccountlist_content ul li a.folder_arrow {
+    border: medium none;
+    display: block;
+    height: 12px;
+    left: 2px;
+    opacity: 0.4;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    top: 5px;
+    transition: all 0.5s ease 0s;
+    width: 12px;
+}
+#folderTree li .folder_name {
+    cursor: grab;
+}
+.wHeightCondensed div.folderlist_content ul li a, .wHeightCondensed div.myaccountlist_content ul li a {
+    font-size: 12px;
+}
+div.folderlist_content ul li a, div.myaccountlist_content ul li a {
+    background: url("https://cdnssl.mediafire.com/images/icons/myfiles/folder-sm.png") no-repeat scroll 17px 4px rgba(0, 0, 0, 0);
+    color: #4f4f4f;
+    display: block;
+    font-size: 14px;
+    overflow: hidden;
+    padding: 2px 0 2px 45px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+div.folderlist_content ul li a:hover, div.myaccountlist_content ul li a:hover {
+    background-color: #EAE8E8;
+}
+a {
+    color: #3190d3;
+    text-decoration: none;
+}
+
+div.folderlist_content ul li a.folder_arrow, div.myaccountlist_content ul li a.folder_arrow {
+    border: medium none;
+    display: block;
+    height: 12px;
+    left: 2px;
+    opacity: 0.4;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    top: 5px;
+    transition: all 0.5s ease 0s;
+    width: 12px;
+}
+.wHeightCondensed div.folderlist_content ul li a, .wHeightCondensed div.myaccountlist_content ul li a {
+    font-size: 12px;
+}
+li.expanded > a.folder_arrow {
+    background: url("https://cdnssl.mediafire.com/images/backgrounds/newMyfiles/smArrow.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    transform: rotate(90deg);
+}
+
+.trashCan:after {
+    background: url("img/ico30-v9.png") no-repeat scroll -1300px 2px transparent;
+    content: "";
+    height: 20px;
+    left: 14px;
+    opacity: 0.6;
+    position: absolute;
+    top: 3px;
+    width: 20px;
+}
+.wHeightCondensed .trashCan, .wHeightCondensed .recentFileshMode {
+    font-size: 12px;
+}
+.trashCan {
+    background: none repeat scroll 0 0 white;
+    color: #4f504f;
+    display: block;
+    font-size: 14px;
+    margin: -29px 17px 0 10px;
+    padding: 6px 0 4px 45px;
+    position: relative;
+    text-overflow: ellipsis;
+    z-index: 4;
+}
+li.collapsed > ul {
+    display: none;
+}
+li.expanded > ul {
+    display: block;
+}
+li.expanded > a.folder_arrow {
+    background: url("https://cdnssl.mediafire.com/images/backgrounds/newMyfiles/smArrow.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    transform: rotate(90deg);
+}
+li.current_folder_location.collapsed > a.folder_arrow {
+    background: url("https://cdnssl.mediafire.com/images/backgrounds/newMyfiles/smArrow.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: medium none;
+}

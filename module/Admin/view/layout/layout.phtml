@@ -13,6 +13,7 @@
         <!-- Le styles -->
         <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
                         ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/js/jquery_contextmenu/contextmenu.css')
                         ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
                         ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
     </head>
@@ -30,9 +31,10 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
+            <li><a href="<?php echo $this->url('admin/default', array('controller' => 'index')) ?>">Quản trị</a></li>
             <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
+            <li><a href="<?php echo $this->url('admin/default', array('controller' => 'profile')) ?>">Profile</a></li>
+            <li><a href="<?php echo $this->url('login/default', array('controller' => 'index', 'action'=>'logout')) ?>">Thoát</a></li>
             <li><a href="#">Help</a></li>
           </ul>
           <form class="navbar-form navbar-right">
@@ -52,38 +54,33 @@
               <ul class="dropdown-menu dropdown-menu-extent" role="menu">
                 <li><a href="#">Danh sách</a></li>
                 <li><a href="#">Thêm mới</a></li>
-              </ul> 
+              </ul>
             </li>
             <li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-list"></span> Chuyên mục</a>
               <ul class="dropdown-menu dropdown-menu-extent" role="menu">
-                <li><a href="#">Danh sách</a></li>
-                <li><a href="#">Thêm mới</a></li>
-              </ul> 
+                <li><a href="<?php echo $this->url('admin/default', array('controller' => 'category', 'action'=>'index')) ?>">Danh sách</a></li>
+                <li><a href="<?php echo $this->url('admin/default', array('controller' => 'category', 'action'=>'add')) ?>">Thêm mới</a></li>
+              </ul>
             </li>
             <li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-tags"></span> Tag</a>
               <ul class="dropdown-menu dropdown-menu-extent" role="menu">
                 <li><a href="#">Danh sách</a></li>
                 <li><a href="#">Thêm mới</a></li>
-              </ul> 
+              </ul>
             </li>
-            <li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-picture"></span> Media</a>
-              <ul class="dropdown-menu dropdown-menu-extent" role="menu">
-                <li><a href="#">Danh sách</a></li>
-                <li><a href="#">Thêm mới</a></li>
-              </ul> 
-            </li>
+            <li><a href="<?php echo $this->url('media/default', array('controller' => 'index', 'action'=>'index')) ?>"><span class="glyphicon glyphicon-cog"></span> Media</a></li>
             <li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-book"></span> Trang</a>
               <ul class="dropdown-menu dropdown-menu-extent" role="menu">
                 <li><a href="#">Danh sách</a></li>
                 <li><a href="#">Thêm mới</a></li>
-              </ul> 
+              </ul>
             </li>
             <li><a href="#"><span class="glyphicon glyphicon-comment"></span> Bình luận</a></li>
             <li><a href="#"><span class="glyphicon glyphicon-user"></span> Người sử dụng</a></li>
             <li><a href="#"><span class="glyphicon glyphicon-globe"></span> Template</a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Cài đặt</a></li>       
-            <li><a class = "menu-collapse" href="#"><span class="glyphicon glyphicon-arrow-left"></span> Thu gọn</a></li>         
-          </ul>          
+            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Cài đặt</a></li>
+            <li><a class = "menu-collapse" href="#"><span class="glyphicon glyphicon-arrow-left"></span> Thu gọn</a></li>
+          </ul>
         </div>
         <div class="col-sm-1 sidebar sidebar-collapse">
           <ul class="nav nav-sidebar">
@@ -94,7 +91,7 @@
                 <li role="presentation" class="divider"></li>
                 <li><a href="#">Danh sách</a></li>
                 <li><a href="#">Thêm mới</a></li>
-              </ul> 
+              </ul>
             </li>
             <li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-list"></span></a>
                 <ul class="dropdown-menu dropdown-menu-collapse" role="menu">
@@ -102,7 +99,7 @@
                 <li role="presentation" class="divider"></li>
                 <li><a href="#">Danh sách</a></li>
                 <li><a href="#">Thêm mới</a></li>
-              </ul> 
+              </ul>
             </li>
             <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Tags"><span class="glyphicon glyphicon-tags"></span></a></li>
             <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Media"><span class="glyphicon glyphicon-picture"></span></a></li>
@@ -110,9 +107,9 @@
             <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Bình luận"><span class="glyphicon glyphicon-comment"></span></a></li>
             <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Người sử dụng"><span class="glyphicon glyphicon-user"></span></a></li>
             <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Giao diện"><span class="glyphicon glyphicon-globe"></span></a></li>
-            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Cài đặt"><span class="glyphicon glyphicon-cog"></span></a></li>       
-            <li><a class = "menu-extent" href="#"><span class="glyphicon glyphicon-arrow-right"></span></a></li>         
-          </ul>          
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Cài đặt"><span class="glyphicon glyphicon-cog"></span></a></li>
+            <li><a class = "menu-extent" href="#"><span class="glyphicon glyphicon-arrow-right"></span></a></li>
+          </ul>
         </div>
     <div class="container-fluid container-content">
     <?php echo $this->content;?>
@@ -123,7 +120,9 @@
             ->prependFile($this->basePath() . '/js/main.js')
             ->prependFile($this->basePath() . '/js/bootstrap.min.js')
             ->prependFile($this->basePath() . '/js/holder.js')
-            ->prependFile($this->basePath() . '/js/jquery.min.js')            
+            ->prependFile($this->basePath() . '/js/jquery.hotkeys-0.7.9.min.js',   'text/javascript')
+            ->prependFile($this->basePath() . '/js/jquery_contextmenu/jquery.contextmenu.js',   'text/javascript')
+            ->prependFile($this->basePath() . '/js/jquery.min.js')
             ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
             ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
         ; ?>

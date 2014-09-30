@@ -1,0 +1,29 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <!-- css -->
+		<!-- the custom UI is based on jQueryUI theme you've downloaded -->
+		<?php echo $this->headLink()
+		         	->prependStylesheet($this->basePath() . '/js/jqueryUi/themes/ui-lightness/jquery-ui.css')
+		         	->prependStylesheet($this->basePath() . '/js/jquery_context_menu/contextmenu.css'); ?>
+    </head>
+    <body>
+
+		<a id="showform" href="<?php echo $this->url('ajax/default',
+		                    array('action'=>'index', 'controller'=>'index')); ?>">Show Form</a>
+
+		<!-- empty div to save dialog temporary -->
+		<div id="winpopup"></div>
+
+		<div class = "context-menu-one">click me</div>
+
+		<div class = "context-menu-one">click me</div>
+
+		<div class = "context-menu-one">click me</div>
+
+		<div class = "context-menu-one-more">click me more</div>
+
+	</body>
+</html>

@@ -1,0 +1,103 @@
+﻿.b-m-mpanel {
+/*
+	background: #F0F0F0 url(images/contextmenu/menu_bg.gif) left repeat-y;
+	border: 1px solid #718BB7;
+	padding: 2px 0;
+	position: absolute;
+	z-index: 99997;
+	left:0px;
+	top:0px;
+*/
+	background-color: #fff;
+    border: 1px solid #bdbdbd;
+    border-radius: 5px;
+    box-shadow: 0 1px 0 #bdbdbd;
+    padding: 5px 0;
+	left:0px;
+	top:0px;
+    position: absolute;
+    z-index: 200;
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+}
+.b-m-split {
+	height: 1px;
+	background-color:#F5F5F5;
+	font-size: 0px;
+	margin: 0;
+}
+.b-m-item, .b-m-idisable
+{
+    padding: 4px 10px 4px 10px;
+    margin: 0 0 0 0;
+    cursor: normal;
+    line-height:100%;
+}
+.b-m-iem{
+	color: #464646;
+    white-space: nowrap;
+}
+.b-m-idisable
+{
+    color:#808080;
+}
+.b-m-ibody, .b-m-arrow {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	
+}
+.b-m-arrow {
+	background: url(images/contextmenu/m_arrow.gif) right  no-repeat;	
+}
+.b-m-idisable .b-m-arrow
+{
+    background:none;
+}
+.b-m-item img, .b-m-ifocus img, .b-m-idisable img {
+	margin-right: 8px;
+}
+.b-m-ifocus {
+	padding: 4px 10px 4px 10px;
+    margin: 0 0 0 0;
+    line-height:100%;
+	background-color: #F5F5F5;
+    cursor: pointer;
+}
+.b-m-idisable img {
+	visibility:hidden;
+}
+.list_img {
+    float: left;
+    margin-right: 4px;
+}
+.list_img {
+    display: inline-block;
+}
+.item-context{
+	display:inline-block;
+	margin: 3px 0 0 0;
+}
+.ip_16x16_add {
+    background-image: url("../../img/files-vixjBm.png");
+    background-position: left -454px;
+    height: 16px;
+    width: 16px;
+}
+.ip_16x16_edit {
+    background-image: url("../../img/files-vixjBm.png");
+    background-position: left -938px;
+    height: 16px;
+    width: 16px;
+}
+.ip_16x16_quickedit {
+    background-image: url("../../img/files-vixjBm.png");
+    background-position: left -1820px;
+    height: 16px;
+    width: 16px;
+}
+.ip_16x16_delete {
+    background-image: url("../../img/files-vixjBm.png");
+    background-position: left -2364px;
+    height: 16px;
+    width: 16px;
+}

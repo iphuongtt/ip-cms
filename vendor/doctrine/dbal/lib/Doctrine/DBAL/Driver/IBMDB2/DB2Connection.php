@@ -19,10 +19,7 @@
 
 namespace Doctrine\DBAL\Driver\IBMDB2;
 
-use Doctrine\DBAL\Driver\Connection;
-use Doctrine\DBAL\Driver\ServerInfoAwareConnection;
-
-class DB2Connection implements Connection, ServerInfoAwareConnection
+class DB2Connection implements \Doctrine\DBAL\Driver\Connection
 {
     /**
      * @var resource
@@ -49,24 +46,6 @@ class DB2Connection implements Connection, ServerInfoAwareConnection
         if ( ! $this->_conn) {
             throw new DB2Exception(db2_conn_errormsg());
         }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getServerVersion()
-    {
-        $serverInfo = db2_server_info($this->_conn);
-
-        return $serverInfo->DBMS_VER;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function requiresQueryForServerVersion()
-    {
-        return false;
     }
 
     /**
@@ -99,7 +78,7 @@ class DB2Connection implements Connection, ServerInfoAwareConnection
     public function quote($input, $type=\PDO::PARAM_STR)
     {
         $input = db2_escape_string($input);
-        if ($type == \PDO::PARAM_INT) {
+        if ($type == \PDO::PARAM_INT ) {
             return $input;
         } else {
             return "'".$input."'";

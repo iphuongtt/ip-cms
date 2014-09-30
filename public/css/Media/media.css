@@ -1,0 +1,280 @@
+#folder_path {
+    background: none repeat scroll 0 0 #f2f2f2;
+    border-bottom: 1px solid #dcdcdc;
+    color: #282829;
+    cursor: default;
+    font-size: 12px;
+    font-weight: bold;
+    height: 41px;
+    overflow: hidden;
+    z-index: 12;
+    position: relative;
+}
+#folder_header{
+    background: none repeat scroll 0 0 #eaeaea;
+    border-bottom: 1px solid #d9d9d9;
+    box-shadow: none;
+    height: 70px;
+}
+span.newfolder{
+    background-image: url("../../img/mediafire.png");
+    background-position: -762px top;
+    display: inline-block;
+    height: 19px;
+    width: 17px;
+}
+span.create_text_file{
+    background-image: url("../../img/mediafire.png");
+    background-position: -1363px top;
+    display: inline-block;
+    height: 19px;
+    width: 17px;
+}
+span.upload_file{
+    background-image: url("../../img/mediafire.png");
+    background-position: -196px top;
+    display: inline-block;
+    height: 19px;
+    width: 17px;
+}
+#search{
+    margin-top: 14px;
+}
+#btn{
+    margin-top: 18px;
+}
+.form-control{
+    height: 34px;
+}
+.btn{
+    height: 34px;
+}
+.glyphicon-th,.glyphicon-list{
+    font-size: 16px
+}
+div#title{
+    font-size: 26px;
+    height: 100%;
+    padding: 1%;
+    color: #068D06;
+}
+
+
+.breadcrumbs_container, .thisfolder_root #myfilesCurrentFolderName {
+    background: url("../../img/breadcrumbArrow.png") no-repeat scroll right center #f7f7f7;
+    display: block;
+    float: left;
+    font-weight: normal;
+    height: 41px;
+    overflow: hidden;
+    padding: 11px 5px 11px 11px;
+    position: relative;
+    text-align: left;
+    white-space: nowrap;
+}
+.breadcrumbs_container a:before {
+    background: url("../../img/emptyArrowSm.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+    content: "";
+    height: 10px;
+    position: absolute;
+
+    top: 14px;
+    width: 8px;
+}
+
+#myfilesCurrentFolderName {
+    background: url("https://cdnssl.mediafire.com/images/icons/myfiles/folder-sm.png") no-repeat scroll 0 10px rgba(0, 0, 0, 0);
+    float: left;
+    margin-left: 10px;
+    overflow: hidden;
+    padding: 11px 0 0 25px;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.breadcrumb > li + li:before{
+    background: url("../../img/emptyArrowSm.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+    content: "";
+}
+.breadcrumb > li.active:before{
+    background: url("../../img/breadcrumbArrow.png") no-repeat scroll right center #f7f7f7;
+    display: block;
+    float: left;
+    font-weight: normal;
+    height: 41px;
+    overflow: hidden;
+    padding: 11px 5px 11px 11px;
+    position: relative;
+    text-align: left;
+    white-space: nowrap;
+    content: "";
+    top: -11px;
+}
+.breadcrumb > li{
+    height: 41px;
+    display: inline-block;
+    padding-top: 11px;
+    background-color: #f7f7f7;
+    float: left;
+    padding-left: 5px;
+}
+.breadcrumb{
+    margin-bottom: 0;
+    padding: 0;
+}
+.breadcrumb li.active{
+    background-color: #f2f2f2;
+    padding-left: 0;
+}
+span.folder_open{
+    background: url("https://cdnssl.mediafire.com/images/icons/myfiles/folder-sm.png") no-repeat scroll 0 10px rgba(0, 0, 0, 0);
+    content: "";
+    height: 41px;
+    position: absolute;
+    top: 0;
+    width: 20px;
+}
+span.folder_name{
+    margin-left: 22px;
+}
+li.file_item{
+    height: 142px;
+    min-width: 0;
+    width: 125px;
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: medium none;
+    clear: none;
+    float: left;
+    margin: 0 0 10px;
+    padding: 10px 10px 30px;
+    font-family: "Open Sans",sans-serif;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+li.file_item_list{
+    height: 45px;
+    background: none repeat scroll 0 0 #fff;
+    border-left: 0 none;
+    border-right: 0 none;
+    border-top: 1px solid #ededed;
+    clear: both;
+    font-family: "Open Sans",sans-serif;
+    margin-left: 0;
+    line-height: 45px;
+    position: relative;
+}
+li.file_item:hover{
+    background-color: #F0F0F0;
+}
+li.file_item_selected{
+    background-color: #EDED93 !important;
+}
+.file_item a.link_file_item{
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+}
+.link_info_file_item{
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+}
+.file_item div.info{
+    bottom: 5px;
+    clear: both;
+    left: 10px;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    top: auto;
+    width: 100%;
+    text-overflow: ellipsis;
+}
+.info span.file_name{
+    white-space: nowrap;
+    text-align: center;
+}
+li.file_item span.thumnail{
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    overflow: hidden;
+    padding: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+}
+.filetype-audio {
+    background-image: url("../../img/audio-v3.png");
+    background-position: -32px 7px;
+}
+em.file_ext{
+    font-family: "Open Sans",sans;
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 700;
+    left: 37px;
+    position: absolute;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2), 0 -1px 0 rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    top: 36px;
+    color:#484848;
+}
+.file_select{
+    position: absolute;
+    top: 0;
+    left:0;
+    display: none;
+}
+.file_option{
+    background-image: url("https://cdnssl.mediafire.com/images/icons/ico30/ico30-v9.png");
+    background-position: -636px top;
+    background-repeat: no-repeat;
+    border-radius: 0 0 0 3px;
+    border: 1px solid #484848;
+    content: "";
+    height: 26px;
+    left: 86px;
+    margin: 0;
+    opacity: 0.5;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 30px;
+    display: none;
+}
+.folder_icon_list{
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    height: 34px;
+    width: 32px;
+    background-image: url("../../img/folder-v5.png");
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+}
+.file_name_list{
+    margin-left: 40px;
+}

@@ -17,7 +17,6 @@
       <xs:sequence>
         <xs:element name="mapped-superclass" type="orm:mapped-superclass" minOccurs="0" maxOccurs="unbounded" />
         <xs:element name="entity" type="orm:entity" minOccurs="0" maxOccurs="unbounded" />
-        <xs:element name="embeddable" type="orm:embeddable" minOccurs="0" maxOccurs="unbounded" />
         <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
       </xs:sequence>
       <xs:anyAttribute namespace="##other"/>
@@ -54,14 +53,6 @@
       <xs:enumeration value="postRemove"/>
       <xs:enumeration value="postLoad"/>
       <xs:enumeration value="preFlush"/>
-    </xs:restriction>
-  </xs:simpleType>
-
-  <xs:simpleType name="cache-usage-type">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="READ_ONLY"/>
-      <xs:enumeration value="READ_WRITE"/>
-      <xs:enumeration value="NONSTRICT_READ_WRITE"/>
     </xs:restriction>
   </xs:simpleType>
   
@@ -161,14 +152,8 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="cache">
-    <xs:attribute name="usage" type="orm:cache-usage-type" />
-    <xs:attribute name="region" type="xs:string" />
-  </xs:complexType>
-
   <xs:complexType name="entity">
     <xs:sequence>
-      <xs:element name="cache" type="orm:cache" minOccurs="0" maxOccurs="1"/>
       <xs:element name="options" type="orm:options" minOccurs="0" />
       <xs:element name="indexes" type="orm:indexes" minOccurs="0"/>
       <xs:element name="unique-constraints" type="orm:unique-constraints" minOccurs="0"/>
@@ -181,7 +166,6 @@
       <xs:element name="sql-result-set-mappings" type="orm:sql-result-set-mappings" minOccurs="0" maxOccurs="unbounded" />
       <xs:element name="id" type="orm:id" minOccurs="0" maxOccurs="unbounded" />
       <xs:element name="field" type="orm:field" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="embedded" type="orm:embedded" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="one-to-one" type="orm:one-to-one" minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="one-to-many" type="orm:one-to-many" minOccurs="0" maxOccurs="unbounded" />
       <xs:element name="many-to-one" type="orm:many-to-one" minOccurs="0" maxOccurs="unbounded" />
@@ -224,16 +208,6 @@
           <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
         </xs:sequence>
         <xs:anyAttribute namespace="##other"/>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-
-  <xs:complexType name="embeddable">
-    <xs:complexContent>
-      <xs:extension base="orm:entity">
-        <xs:sequence>
-          <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
-        </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -300,12 +274,6 @@
     <xs:anyAttribute namespace="##other"/>
   </xs:complexType>
   
-  <xs:complexType name="embedded">
-    <xs:attribute name="name" type="xs:string" use="required" />
-    <xs:attribute name="class" type="xs:string" use="required" />
-    <xs:attribute name="column-prefix" type="xs:string" use="optional" />
-  </xs:complexType>
-  
   <xs:complexType name="discriminator-column">
     <xs:sequence>
       <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
@@ -341,7 +309,6 @@
     </xs:sequence>
     <xs:attribute name="name" type="xs:NMTOKEN" use="optional"/>
     <xs:attribute name="columns" type="xs:string" use="required"/>
-    <xs:attribute name="flags" type="xs:string" use="optional"/>
     <xs:anyAttribute namespace="##other"/>
   </xs:complexType>
   
@@ -429,6 +396,7 @@
     <xs:attribute name="unique" type="xs:boolean" default="false" />
     <xs:attribute name="nullable" type="xs:boolean" default="true" />
     <xs:attribute name="on-delete" type="orm:fk-action" />
+    <xs:attribute name="on-update" type="orm:fk-action" />
     <xs:attribute name="column-definition" type="xs:string" />
     <xs:anyAttribute namespace="##other"/>
   </xs:complexType>
@@ -478,7 +446,6 @@
 
   <xs:complexType name="many-to-many">
     <xs:sequence>
-       <xs:element name="cache" type="orm:cache" minOccurs="0" maxOccurs="1"/>
       <xs:element name="cascade" type="orm:cascade-type" minOccurs="0" />
       <xs:element name="join-table" type="orm:join-table" minOccurs="0" />
       <xs:element name="order-by" type="orm:order-by" minOccurs="0" />
@@ -496,7 +463,6 @@
 
   <xs:complexType name="one-to-many">
     <xs:sequence>
-       <xs:element name="cache" type="orm:cache" minOccurs="0" maxOccurs="1"/>
       <xs:element name="cascade" type="orm:cascade-type" minOccurs="0" />
       <xs:element name="order-by" type="orm:order-by" minOccurs="0" />
       <xs:any minOccurs="0" maxOccurs="unbounded" namespace="##other"/>
@@ -512,7 +478,6 @@
   
   <xs:complexType name="many-to-one">
     <xs:sequence>
-       <xs:element name="cache" type="orm:cache" minOccurs="0" maxOccurs="1"/>
       <xs:element name="cascade" type="orm:cascade-type" minOccurs="0" />
       <xs:choice minOccurs="0" maxOccurs="1">
         <xs:element name="join-column" type="orm:join-column"/>
@@ -531,7 +496,6 @@
   
   <xs:complexType name="one-to-one">
     <xs:sequence>
-       <xs:element name="cache" type="orm:cache" minOccurs="0" maxOccurs="1"/>
       <xs:element name="cascade" type="orm:cascade-type" minOccurs="0" />
       <xs:choice minOccurs="0" maxOccurs="1">
         <xs:element name="join-column" type="orm:join-column"/>

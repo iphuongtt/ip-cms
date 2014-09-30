@@ -655,7 +655,7 @@ class MappingException extends \Doctrine\ORM\ORMException
      */
     public static function noInheritanceOnMappedSuperClass($className)
     {
-        return new self("It is not supported to define inheritance information on a mapped superclass '" . $className . "'.");
+        return new self("Its not supported to define inheritance information on a mapped superclass '" . $className . "'.");
     }
 
     /**
@@ -705,18 +705,6 @@ class MappingException extends \Doctrine\ORM\ORMException
     public static function entityListenerMethodNotFound($listenerName, $methodName, $className)
     {
         return new self(sprintf('Entity Listener "%s" declared on "%s" has no method "%s".', $listenerName, $className, $methodName));
-    }
-
-    /**
-     * @param string $listenerName
-     * @param string $methodName
-     * @param string $className
-     *
-     * @return \Doctrine\ORM\Mapping\MappingException
-     */
-    public static function duplicateEntityListener($listenerName, $methodName, $className)
-    {
-        return new self(sprintf('Entity Listener "%s#%s()" in "%s" was already declared, but it must be declared only once.', $listenerName, $methodName, $className));
     }
 
     /**
@@ -779,24 +767,6 @@ class MappingException extends \Doctrine\ORM\ORMException
     {
         return new self(
             sprintf('Missing "sequenceName" attribute for sequence id generator definition on class "%s".', $className)
-        );
-    }
-
-    /**
-     * @param string $className
-     * @param string $propertyName
-     *
-     * @return MappingException
-     */
-    public static function infiniteEmbeddableNesting($className, $propertyName)
-    {
-        return new self(
-            sprintf(
-                'Infinite nesting detected for embedded property %s::%s. ' .
-                'You cannot embed an embeddable from the same type inside an embeddable.',
-                $className,
-                $propertyName
-            )
         );
     }
 }

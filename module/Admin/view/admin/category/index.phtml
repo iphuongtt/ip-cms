@@ -1,0 +1,81 @@
+<div class="col-sm-5 col-sm-offset-7">
+	<form class="navbar-form navbar-right" role="search" method="POST">
+	  <div class="form-group">
+	    <input type="text" class="form-control" placeholder="Cụm từ tìm kiếm" name = "search_category" value = "<?php echo $this->search_category;?>" />
+	  </div>
+	  <button type="submit" class="btn btn-default">Tìm kiếm</button>
+	</form>
+</div>
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<td>Tên chuyên mục</td>
+			<td>Slug</td>
+			<td>Mô tả</td>
+		</tr>
+	</thead>
+	<tfoot>
+		<tr>
+			<td>Tên chuyên mục</td>
+			<td>Slug</td>
+			<td>Mô tả</td>
+		</tr>
+	</tfoot>
+	<tbody><?php
+	foreach ($this->categories as $key => $value) {?>
+		<tr>
+			<td><span class = "name"><?php echo $value->getTermId()->getName();?></span><?php
+			echo $this->rowAction(
+				$value->getTermTaxonomyId()
+				 ,$this->url('admin/default', array('controller' => 'category', 'action' => 'edit','id' => $value->getTermTaxonomyId()))
+				 ,$this->url('admin/default', array('controller' => 'category', 'action' => 'delete','id' => $value->getTermTaxonomyId()))
+				 ,$this->url('admin/default', array('controller' => 'category', 'action' => 'view','id' => $value->getTermTaxonomyId()))
+			);?>
+				<div class = "hidden">
+					<span class = "name"><?php echo $value->getTermId()->getName();?></span>
+					<span class = "slug"><?php echo $value->getTermId()->getSlug();?></span>
+					<input type="hidden" class = "cat_id" value = "<?php echo $value->getTermId()->getTermId();?>">
+					<input type="hidden" class = "taxonomy_id" value = "<?php echo $value->getTermTaxonomyId();?>">
+				</div>
+			</td>
+			<td><span class = "slug"><?php echo $value->getTermId()->getSlug(); ?></span></td>
+			<td><?php echo $value->getDescription(); ?></td>
+		</tr><?php
+	}?>
+	</tbody>
+</table>
+
+
+<form method="get" action="">
+	<table style="display: none">
+		<tbody id="inlineedit">
+			<tr id="inline-edit" class="inline-edit-row" style="display: none">
+				<td colspan="3" class="colspanchange">
+						<div class = "container-fluid row">
+					    	<label class="col-sm-2 control-label" for="formGroupInputLarge">Tên chuyên mục</label>
+					    	<div class="col-sm-10">
+					      		<input class="form-control" type="text" id="cat_name">
+					    	</div>
+					  	</div>
+					  	<div class = "container-fluid row">
+					    	<label class="col-sm-2 control-label" for="formGroupInputSmall">Slug</label>
+					    	<div class="col-sm-10">
+					      		<input class="form-control" type="text" id="cat_slug">
+					    	</div>
+					  	</div>
+					  	<div class = "container-fluid row">
+					  		<button class="btn btn-default inline-cancel" type="button">Hủy</button>
+					    	<button class="btn btn-primary inline-update" type="button">Cập nhật</button>
+					    	<span class = "error"></span>
+					  	</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+<script type = "text/javascript">
+	var urlAdd = "<?php echo $this->url('admin/default', array('controller' => 'category', 'action' => 'add'))  ?>"
+	var urlEdit = "<?php echo $this->url('admin/default', array('controller' => 'category', 'action' => 'edit'))  ?>"
+	var urlDelete = "<?php echo $this->url('admin/default', array('controller' => 'category', 'action' => 'delete'))  ?>"
+	var ipaction = '';
+</script>

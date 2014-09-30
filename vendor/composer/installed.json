@@ -1,17 +1,17 @@
 [
     {
         "name": "zendframework/zendxml",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/zendframework/ZendXml.git",
-            "reference": "5ea106152f32f738430f3af9ac638bf30adec625"
+            "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/5ea106152f32f738430f3af9ac638bf30adec625",
-            "reference": "5ea106152f32f738430f3af9ac638bf30adec625",
+            "url": "https://api.github.com/repos/zendframework/ZendXml/zipball/559b34f426d33a11c3db118e00ce14bb8dc64e5f",
+            "reference": "559b34f426d33a11c3db118e00ce14bb8dc64e5f",
             "shasum": ""
         },
         "require": {
@@ -21,14 +21,14 @@
             "fabpot/php-cs-fixer": "*@dev",
             "phpunit/phpunit": "~3.7"
         },
-        "time": "2014-08-14 15:29:10",
+        "time": "2014-03-05 22:25:44",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "1.0-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "ZendXml": "library/"
@@ -48,17 +48,17 @@
     },
     {
         "name": "zendframework/zendframework",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "2.3.2",
+        "version_normalized": "2.3.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/zendframework/zf2.git",
-            "reference": "a7b91f585b7d342bcc61a810972997cba1d3ab17"
+            "reference": "0b74b66dc07ff88140287bdf67d230c1bd32ee0c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/zendframework/zf2/zipball/a7b91f585b7d342bcc61a810972997cba1d3ab17",
-            "reference": "a7b91f585b7d342bcc61a810972997cba1d3ab17",
+            "url": "https://api.github.com/repos/zendframework/zf2/zipball/0b74b66dc07ff88140287bdf67d230c1bd32ee0c",
+            "reference": "0b74b66dc07ff88140287bdf67d230c1bd32ee0c",
             "shasum": ""
         },
         "require": {
@@ -136,7 +136,7 @@
             "zendframework/zendpdf": "ZendPdf for creating PDF representations of barcodes",
             "zendframework/zendservice-recaptcha": "ZendService\\ReCaptcha for rendering ReCaptchas in Zend\\Captcha and/or Zend\\Form"
         },
-        "time": "2014-08-20 13:18:53",
+        "time": "2014-08-12 16:48:34",
         "bin": [
             "bin/classmap_generator.php",
             "bin/pluginmap_generator.php",
@@ -149,7 +149,7 @@
                 "dev-develop": "2.4-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Zend\\": "library/"
@@ -168,18 +168,18 @@
     },
     {
         "name": "symfony/console",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v2.5.3",
+        "version_normalized": "2.5.3.0",
         "target-dir": "Symfony/Component/Console",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/Console.git",
-            "reference": "1bbbcdc8f55338a72adc8a7d1171c020b044f0a9"
+            "reference": "cd2d1e4bac2206b337326b0140ff475fe9ad5f63"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/Console/zipball/1bbbcdc8f55338a72adc8a7d1171c020b044f0a9",
-            "reference": "1bbbcdc8f55338a72adc8a7d1171c020b044f0a9",
+            "url": "https://api.github.com/repos/symfony/Console/zipball/cd2d1e4bac2206b337326b0140ff475fe9ad5f63",
+            "reference": "cd2d1e4bac2206b337326b0140ff475fe9ad5f63",
             "shasum": ""
         },
         "require": {
@@ -187,22 +187,20 @@
         },
         "require-dev": {
             "psr/log": "~1.0",
-            "symfony/event-dispatcher": "~2.1",
-            "symfony/process": "~2.1"
+            "symfony/event-dispatcher": "~2.1"
         },
         "suggest": {
             "psr/log": "For using the console logger",
-            "symfony/event-dispatcher": "",
-            "symfony/process": ""
+            "symfony/event-dispatcher": ""
         },
-        "time": "2014-08-27 13:03:54",
+        "time": "2014-08-05 09:00:40",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.6-dev"
+                "dev-master": "2.5-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Symfony\\Component\\Console\\": ""
@@ -227,30 +225,25 @@
     },
     {
         "name": "doctrine/lexer",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v1.0",
+        "version_normalized": "1.0.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/lexer.git",
-            "reference": "db77c80d33d72e33a62b80581e9d150af85de556"
+            "reference": "2f708a85bb3aab5d99dab8be435abd73e0b18acb"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/lexer/zipball/db77c80d33d72e33a62b80581e9d150af85de556",
-            "reference": "db77c80d33d72e33a62b80581e9d150af85de556",
+            "url": "https://api.github.com/repos/doctrine/lexer/zipball/2f708a85bb3aab5d99dab8be435abd73e0b18acb",
+            "reference": "2f708a85bb3aab5d99dab8be435abd73e0b18acb",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.2"
         },
-        "time": "2014-06-11 23:09:27",
+        "time": "2013-01-12 18:59:04",
         "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0.x-dev"
-            }
-        },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Doctrine\\Common\\Lexer\\": "lib/"
@@ -286,17 +279,17 @@
     },
     {
         "name": "doctrine/annotations",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v1.2.0",
+        "version_normalized": "1.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/annotations.git",
-            "reference": "e93f3b718c421daddff58c4a4af1aee574472cd6"
+            "reference": "d9b1a37e9351ddde1f19f09a02e3d6ee92e82efd"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/annotations/zipball/e93f3b718c421daddff58c4a4af1aee574472cd6",
-            "reference": "e93f3b718c421daddff58c4a4af1aee574472cd6",
+            "url": "https://api.github.com/repos/doctrine/annotations/zipball/d9b1a37e9351ddde1f19f09a02e3d6ee92e82efd",
+            "reference": "d9b1a37e9351ddde1f19f09a02e3d6ee92e82efd",
             "shasum": ""
         },
         "require": {
@@ -307,14 +300,14 @@
             "doctrine/cache": "1.*",
             "phpunit/phpunit": "4.*"
         },
-        "time": "2014-07-27 16:33:24",
+        "time": "2014-07-06 15:52:21",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "1.3.x-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Doctrine\\Common\\Annotations\\": "lib/"
@@ -326,6 +319,17 @@
         ],
         "authors": [
             {
+                "name": "Jonathan Wage",
+                "email": "jonwage@gmail.com",
+                "homepage": "http://www.jwage.com/",
+                "role": "Creator"
+            },
+            {
+                "name": "Guilherme Blanco",
+                "email": "guilhermeblanco@gmail.com",
+                "homepage": "http://www.instaclick.com"
+            },
+            {
                 "name": "Roman Borschel",
                 "email": "roman@code-factory.org"
             },
@@ -334,16 +338,10 @@
                 "email": "kontakt@beberlei.de"
             },
             {
-                "name": "Guilherme Blanco",
-                "email": "guilhermeblanco@gmail.com"
-            },
-            {
-                "name": "Jonathan Wage",
-                "email": "jonwage@gmail.com"
-            },
-            {
                 "name": "Johannes Schmitt",
-                "email": "schmittjoh@gmail.com"
+                "email": "schmittjoh@gmail.com",
+                "homepage": "https://github.com/schmittjoh",
+                "role": "Developer of wrapped JMSSerializerBundle"
             }
         ],
         "description": "Docblock Annotations Parser",
@@ -356,33 +354,30 @@
     },
     {
         "name": "doctrine/collections",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v1.2",
+        "version_normalized": "1.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/collections.git",
-            "reference": "432240f56fbc9a811dbf1ff8a45c1a1047ba1c0a"
+            "reference": "b99c5c46c87126201899afe88ec490a25eedd6a2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/collections/zipball/432240f56fbc9a811dbf1ff8a45c1a1047ba1c0a",
-            "reference": "432240f56fbc9a811dbf1ff8a45c1a1047ba1c0a",
+            "url": "https://api.github.com/repos/doctrine/collections/zipball/b99c5c46c87126201899afe88ec490a25eedd6a2",
+            "reference": "b99c5c46c87126201899afe88ec490a25eedd6a2",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.2"
         },
-        "require-dev": {
-            "phpunit/phpunit": "~4.0"
-        },
-        "time": "2014-07-29 20:07:28",
+        "time": "2014-02-03 23:07:43",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "1.2.x-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Doctrine\\Common\\Collections\\": "lib/"
@@ -394,6 +389,17 @@
         ],
         "authors": [
             {
+                "name": "Jonathan Wage",
+                "email": "jonwage@gmail.com",
+                "homepage": "http://www.jwage.com/",
+                "role": "Creator"
+            },
+            {
+                "name": "Guilherme Blanco",
+                "email": "guilhermeblanco@gmail.com",
+                "homepage": "http://www.instaclick.com"
+            },
+            {
                 "name": "Roman Borschel",
                 "email": "roman@code-factory.org"
             },
@@ -402,16 +408,10 @@
                 "email": "kontakt@beberlei.de"
             },
             {
-                "name": "Guilherme Blanco",
-                "email": "guilhermeblanco@gmail.com"
-            },
-            {
-                "name": "Jonathan Wage",
-                "email": "jonwage@gmail.com"
-            },
-            {
                 "name": "Johannes Schmitt",
-                "email": "schmittjoh@gmail.com"
+                "email": "schmittjoh@gmail.com",
+                "homepage": "https://github.com/schmittjoh",
+                "role": "Developer of wrapped JMSSerializerBundle"
             }
         ],
         "description": "Collections Abstraction library",
@@ -424,17 +424,17 @@
     },
     {
         "name": "doctrine/cache",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v1.3.0",
+        "version_normalized": "1.3.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/cache.git",
-            "reference": "72121e68265cd8b37f9b69778308251f6c5133e4"
+            "reference": "e16d7adf45664a50fa86f515b6d5e7f670130449"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/cache/zipball/72121e68265cd8b37f9b69778308251f6c5133e4",
-            "reference": "72121e68265cd8b37f9b69778308251f6c5133e4",
+            "url": "https://api.github.com/repos/doctrine/cache/zipball/e16d7adf45664a50fa86f515b6d5e7f670130449",
+            "reference": "e16d7adf45664a50fa86f515b6d5e7f670130449",
             "shasum": ""
         },
         "require": {
@@ -447,14 +447,14 @@
             "phpunit/phpunit": ">=3.7",
             "satooshi/php-coveralls": "~0.6"
         },
-        "time": "2014-08-05 12:51:19",
+        "time": "2013-10-25 19:04:14",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.4.x-dev"
+                "dev-master": "1.0.x-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Doctrine\\Common\\Cache\\": "lib/"
@@ -466,6 +466,17 @@
         ],
         "authors": [
             {
+                "name": "Jonathan Wage",
+                "email": "jonwage@gmail.com",
+                "homepage": "http://www.jwage.com/",
+                "role": "Creator"
+            },
+            {
+                "name": "Guilherme Blanco",
+                "email": "guilhermeblanco@gmail.com",
+                "homepage": "http://www.instaclick.com"
+            },
+            {
                 "name": "Roman Borschel",
                 "email": "roman@code-factory.org"
             },
@@ -474,16 +485,10 @@
                 "email": "kontakt@beberlei.de"
             },
             {
-                "name": "Guilherme Blanco",
-                "email": "guilhermeblanco@gmail.com"
-            },
-            {
-                "name": "Jonathan Wage",
-                "email": "jonwage@gmail.com"
-            },
-            {
                 "name": "Johannes Schmitt",
-                "email": "schmittjoh@gmail.com"
+                "email": "schmittjoh@gmail.com",
+                "homepage": "https://github.com/schmittjoh",
+                "role": "Developer of wrapped JMSSerializerBundle"
             }
         ],
         "description": "Caching library offering an object-oriented API for many cache backends",
@@ -495,33 +500,25 @@
     },
     {
         "name": "doctrine/inflector",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v1.0",
+        "version_normalized": "1.0.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/inflector.git",
-            "reference": "64de2fe36d578c5d5f3807ac7984547bbba5f7c5"
+            "reference": "54b8333d2a5682afdc690060c1cf384ba9f47f08"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/inflector/zipball/64de2fe36d578c5d5f3807ac7984547bbba5f7c5",
-            "reference": "64de2fe36d578c5d5f3807ac7984547bbba5f7c5",
+            "url": "https://api.github.com/repos/doctrine/inflector/zipball/54b8333d2a5682afdc690060c1cf384ba9f47f08",
+            "reference": "54b8333d2a5682afdc690060c1cf384ba9f47f08",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.2"
         },
-        "require-dev": {
-            "phpunit/phpunit": "4.*"
-        },
-        "time": "2014-04-23 12:36:11",
+        "time": "2013-01-10 21:49:15",
         "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0.x-dev"
-            }
-        },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Doctrine\\Common\\Inflector\\": "lib/"
@@ -562,24 +559,24 @@
         "homepage": "http://www.doctrine-project.org",
         "keywords": [
             "inflection",
-            "pluralize",
-            "singularize",
+            "pluarlize",
+            "singuarlize",
             "string"
         ]
     },
     {
         "name": "doctrine/common",
-        "version": "2.4.x-dev",
-        "version_normalized": "2.4.9999999.9999999-dev",
+        "version": "v2.4.2",
+        "version_normalized": "2.4.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/common.git",
-            "reference": "ae92d076442e27b6910dd86a1292a8867cf5cfe4"
+            "reference": "5db6ab40e4c531f14dad4ca96a394dfce5d4255b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/common/zipball/ae92d076442e27b6910dd86a1292a8867cf5cfe4",
-            "reference": "ae92d076442e27b6910dd86a1292a8867cf5cfe4",
+            "url": "https://api.github.com/repos/doctrine/common/zipball/5db6ab40e4c531f14dad4ca96a394dfce5d4255b",
+            "reference": "5db6ab40e4c531f14dad4ca96a394dfce5d4255b",
             "shasum": ""
         },
         "require": {
@@ -593,14 +590,14 @@
         "require-dev": {
             "phpunit/phpunit": "~3.7"
         },
-        "time": "2014-05-21 19:29:23",
+        "time": "2014-05-21 19:28:51",
         "type": "library",
         "extra": {
             "branch-alias": {
                 "dev-master": "2.4.x-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Doctrine\\Common\\": "lib/"
@@ -733,41 +730,33 @@
     },
     {
         "name": "doctrine/dbal",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v2.4.2",
+        "version_normalized": "2.4.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/dbal.git",
-            "reference": "1c9c24a7e2295b71249ae2a719ce38861fccd551"
+            "reference": "fec965d330c958e175c39e61c3f6751955af32d0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/dbal/zipball/1c9c24a7e2295b71249ae2a719ce38861fccd551",
-            "reference": "1c9c24a7e2295b71249ae2a719ce38861fccd551",
+            "url": "https://api.github.com/repos/doctrine/dbal/zipball/fec965d330c958e175c39e61c3f6751955af32d0",
+            "reference": "fec965d330c958e175c39e61c3f6751955af32d0",
             "shasum": ""
         },
         "require": {
-            "doctrine/common": "2.4.*",
+            "doctrine/common": "~2.4",
             "php": ">=5.3.2"
         },
         "require-dev": {
-            "phpunit/phpunit": "4.0.*",
-            "symfony/console": "2.*"
+            "phpunit/phpunit": "3.7.*",
+            "symfony/console": "~2.0"
         },
         "suggest": {
-            "symfony/console": "For helpful console commands such as SQL execution and import of files."
+            "symfony/console": "Allows use of the command line interface"
         },
-        "time": "2014-08-24 01:25:05",
-        "bin": [
-            "bin/doctrine-dbal"
-        ],
+        "time": "2014-01-01 16:43:57",
         "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.5.x-dev"
-            }
-        },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Doctrine\\DBAL\\": "lib/"
@@ -779,20 +768,23 @@
         ],
         "authors": [
             {
+                "name": "Jonathan Wage",
+                "email": "jonwage@gmail.com",
+                "homepage": "http://www.jwage.com/",
+                "role": "Creator"
+            },
+            {
+                "name": "Guilherme Blanco",
+                "email": "guilhermeblanco@gmail.com",
+                "homepage": "http://www.instaclick.com"
+            },
+            {
                 "name": "Roman Borschel",
                 "email": "roman@code-factory.org"
             },
             {
                 "name": "Benjamin Eberlei",
                 "email": "kontakt@beberlei.de"
-            },
-            {
-                "name": "Guilherme Blanco",
-                "email": "guilhermeblanco@gmail.com"
-            },
-            {
-                "name": "Jonathan Wage",
-                "email": "jonwage@gmail.com"
             }
         ],
         "description": "Database Abstraction Layer",
@@ -805,93 +797,35 @@
         ]
     },
     {
-        "name": "doctrine/instantiator",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/doctrine/instantiator.git",
-            "reference": "26404e0c90565b614ee76b988b9bc8790d77f590"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/instantiator/zipball/26404e0c90565b614ee76b988b9bc8790d77f590",
-            "reference": "26404e0c90565b614ee76b988b9bc8790d77f590",
-            "shasum": ""
-        },
-        "require": {
-            "php": "~5.3"
-        },
-        "require-dev": {
-            "athletic/athletic": "~0.1.8",
-            "ext-pdo": "*",
-            "ext-phar": "*",
-            "phpunit/phpunit": "~4.0",
-            "squizlabs/php_codesniffer": "2.0.*@ALPHA"
-        },
-        "time": "2014-08-25 15:09:25",
-        "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.0.x-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "Doctrine\\Instantiator\\": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Marco Pivetta",
-                "email": "ocramius@gmail.com",
-                "homepage": "http://ocramius.github.com/"
-            }
-        ],
-        "description": "A small, lightweight utility to instantiate objects in PHP without invoking their constructors",
-        "homepage": "https://github.com/doctrine/instantiator",
-        "keywords": [
-            "constructor",
-            "instantiate"
-        ]
-    },
-    {
         "name": "doctrine/orm",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v2.4.4",
+        "version_normalized": "2.4.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/doctrine2.git",
-            "reference": "4b504c9436097dc229c1b800dca199d777cd2889"
+            "reference": "fc19c3b53dcd00e6584db40669fdd699c4671f97"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/4b504c9436097dc229c1b800dca199d777cd2889",
-            "reference": "4b504c9436097dc229c1b800dca199d777cd2889",
+            "url": "https://api.github.com/repos/doctrine/doctrine2/zipball/fc19c3b53dcd00e6584db40669fdd699c4671f97",
+            "reference": "fc19c3b53dcd00e6584db40669fdd699c4671f97",
             "shasum": ""
         },
         "require": {
-            "doctrine/collections": "~1.2",
-            "doctrine/dbal": ">=2.5-dev,<2.6-dev",
-            "doctrine/instantiator": "~1.0.1",
+            "doctrine/collections": "~1.1",
+            "doctrine/dbal": "~2.4",
             "ext-pdo": "*",
             "php": ">=5.3.2",
-            "symfony/console": "2.*"
+            "symfony/console": "~2.0"
         },
         "require-dev": {
-            "phpunit/phpunit": "~4.0",
             "satooshi/php-coveralls": "dev-master",
             "symfony/yaml": "~2.1"
         },
         "suggest": {
             "symfony/yaml": "If you want to use YAML Metadata Mapping Driver"
         },
-        "time": "2014-08-27 16:27:05",
+        "time": "2014-07-11 03:05:53",
         "bin": [
             "bin/doctrine",
             "bin/doctrine.php"
@@ -899,10 +833,10 @@
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "2.5.x-dev"
+                "dev-master": "2.4.x-dev"
             }
         },
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
             "psr-0": {
                 "Doctrine\\ORM\\": "lib/"
@@ -914,20 +848,23 @@
         ],
         "authors": [
             {
+                "name": "Jonathan Wage",
+                "email": "jonwage@gmail.com",
+                "homepage": "http://www.jwage.com/",
+                "role": "Creator"
+            },
+            {
+                "name": "Guilherme Blanco",
+                "email": "guilhermeblanco@gmail.com",
+                "homepage": "http://www.instaclick.com"
+            },
+            {
                 "name": "Roman Borschel",
                 "email": "roman@code-factory.org"
             },
             {
                 "name": "Benjamin Eberlei",
                 "email": "kontakt@beberlei.de"
-            },
-            {
-                "name": "Guilherme Blanco",
-                "email": "guilhermeblanco@gmail.com"
-            },
-            {
-                "name": "Jonathan Wage",
-                "email": "jonwage@gmail.com"
             }
         ],
         "description": "Object-Relational-Mapper for PHP",

@@ -65,11 +65,6 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
     private $evm;
 
     /**
-     * @var array
-     */
-    private $embeddablesActiveNesting = array();
-
-    /**
      * @param EntityManager $em
      */
     public function setEntityManager(EntityManager $em)
@@ -101,7 +96,6 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
             $class->setIdGeneratorType($parent->generatorType);
             $this->addInheritedFields($class, $parent);
             $this->addInheritedRelations($class, $parent);
-            $this->addInheritedEmbeddedClasses($class, $parent);
             $class->setIdentifier($parent->identifier);
             $class->setVersioned($parent->isVersioned);
             $class->setVersionField($parent->versionField);
@@ -146,37 +140,8 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
             $this->completeIdGeneratorMapping($class);
         }
 
-        if (!$class->isMappedSuperclass) {
-            foreach ($class->embeddedClasses as $property => $embeddableClass) {
-
-                if (isset($embeddableClass['inherited'])) {
-                    continue;
-                }
-
-                if (isset($this->embeddablesActiveNesting[$embeddableClass['class']])) {
-                    throw MappingException::infiniteEmbeddableNesting($class->name, $property);
-                }
-
-                $this->embeddablesActiveNesting[$class->name] = true;
-
-                $embeddableMetadata = $this->getMetadataFor($embeddableClass['class']);
-
-                if ($embeddableMetadata->isEmbeddedClass) {
-                    $this->addNestedEmbeddedClasses($embeddableMetadata, $class, $property);
-                }
-
-                $class->inlineEmbeddable($property, $embeddableMetadata);
-
-                unset($this->embeddablesActiveNesting[$class->name]);
-            }
-        }
-
         if ($parent && $parent->isInheritanceTypeSingleTable()) {
             $class->setPrimaryTable($parent->table);
-        }
-
-        if ($parent && $parent->cache) {
-            $class->cache = $parent->cache;
         }
 
         if ($parent && $parent->containsForeignIdentifier) {
@@ -373,48 +338,6 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
         }
     }
 
-    private function addInheritedEmbeddedClasses(ClassMetadata $subClass, ClassMetadata $parentClass)
-    {
-        foreach ($parentClass->embeddedClasses as $field => $embeddedClass) {
-            if ( ! isset($embeddedClass['inherited']) && ! $parentClass->isMappedSuperclass) {
-                $embeddedClass['inherited'] = $parentClass->name;
-            }
-            if ( ! isset($embeddedClass['declared'])) {
-                $embeddedClass['declared'] = $parentClass->name;
-            }
-
-            $subClass->embeddedClasses[$field] = $embeddedClass;
-        }
-    }
-
-    /**
-     * Adds nested embedded classes metadata to a parent class.
-     *
-     * @param ClassMetadata $subClass    Sub embedded class metadata to add nested embedded classes metadata from.
-     * @param ClassMetadata $parentClass Parent class to add nested embedded classes metadata to.
-     * @param string        $prefix      Embedded classes' prefix to use for nested embedded classes field names.
-     */
-    private function addNestedEmbeddedClasses(ClassMetadata $subClass, ClassMetadata $parentClass, $prefix)
-    {
-        foreach ($subClass->embeddedClasses as $property => $embeddableClass) {
-            if (isset($embeddableClass['inherited'])) {
-                continue;
-            }
-
-            $embeddableMetadata = $this->getMetadataFor($embeddableClass['class']);
-
-            $parentClass->mapEmbedded(array(
-                'fieldName' => $prefix . '.' . $property,
-                'class' => $embeddableMetadata->name,
-                'columnPrefix' => $embeddableClass['columnPrefix'],
-                'declaredField' => $embeddableClass['declaredField']
-                        ? $prefix . '.' . $embeddableClass['declaredField']
-                        : $prefix,
-                'originalField' => $embeddableClass['originalField'] ?: $property,
-            ));
-        }
-    }
-
     /**
      * Adds inherited named queries to the subclass mapping.
      *
@@ -521,15 +444,17 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
         // Create & assign an appropriate ID generator instance
         switch ($class->generatorType) {
             case ClassMetadata::GENERATOR_TYPE_IDENTITY:
+                // For PostgreSQL IDENTITY (SERIAL) we need a sequence name. It defaults to
+                // <table>_<column>_seq in PostgreSQL for SERIAL columns.
+                // Not pretty but necessary and the simplest solution that currently works.
                 $sequenceName = null;
                 $fieldName    = $class->identifier ? $class->getSingleIdentifierFieldName() : null;
 
-                // Platforms that do not have native IDENTITY support need a sequence to emulate this behaviour.
-                if ($this->targetPlatform->usesSequenceEmulatedIdentityColumns()) {
-                    $columnName   = $class->getSingleIdentifierColumnName();
-                    $quoted       = isset($class->fieldMappings[$fieldName]['quoted']) || isset($class->table['quoted']);
-                    $sequenceName = $this->targetPlatform->getIdentitySequenceName($class->getTableName(), $columnName);
-                    $definition   = array(
+                if ($this->targetPlatform instanceof Platforms\PostgreSQLPlatform) {
+                    $columnName     = $class->getSingleIdentifierColumnName();
+                    $quoted         = isset($class->fieldMappings[$fieldName]['quoted']) || isset($class->table['quoted']);
+                    $sequenceName   = $class->getTableName() . '_' . $columnName . '_seq';
+                    $definition     = array(
                         'sequenceName' => $this->targetPlatform->fixSchemaElementName($sequenceName)
                     );
 
@@ -537,11 +462,7 @@ class ClassMetadataFactory extends AbstractClassMetadataFactory
                         $definition['quoted'] = true;
                     }
 
-                    $sequenceName = $this
-                        ->em
-                        ->getConfiguration()
-                        ->getQuoteStrategy()
-                        ->getSequenceName($definition, $class, $this->targetPlatform);
+                    $sequenceName = $this->em->getConfiguration()->getQuoteStrategy()->getSequenceName($definition, $class, $this->targetPlatform);
                 }
 
                 $generator = ($fieldName && $class->fieldMappings[$fieldName]['type'] === 'bigint')

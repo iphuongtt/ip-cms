@@ -1,0 +1,55 @@
+<?php
+if($this->files){?>
+<ol class = "ol_files"><?php
+	foreach ($this->files as $key => $value) {?>
+	<li class = "file_item">
+		<span class = "thumnail filetype-audio"></span>
+		<input type = "checkbox" class = "file_select" />
+		<em class = "file_ext">mp3</em>
+		<a class = "file_option"></a>
+		<div class = "info">
+			<a class = "link_info_file_item">
+				<span class = "file_name"><?php echo $value->getFileName(). $key;?></span>
+			</a>
+		</div>
+	</li>
+	<?php
+	}
+}
+?>
+<script type = "text/javascript">
+	var option = { width: 150
+	         ,items: [
+	              { text: "Tải về", icon: "ip_16x16_add", alias:"1", action: function(){
+	                window.location = urlAdd;
+	              } },
+	              { text: "Sửa", icon: "ip_16x16_edit", alias:"2", action: function(obj){
+	                window.location = urlEdit + '/' + $(obj).find('.taxonomy_id').val();
+	              } },
+	              { text: "Xóa", icon: "ip_16x16_delete", alias:"4", action: function(obj){
+	                window.location = urlDelete + '/' + $(obj).find('.taxonomy_id').val();
+	              } },
+	            ]
+	};
+	$(".ol_files li.file_item").contextmenu(option);
+	$('li.file_item a.file_option').bind('click', function(e){
+		$(this).parent().trigger('contextmenu',[e]);
+	});
+	$('.ol_files li.file_item').hover(
+		function(){
+			$(this).find('.file_option, .file_select').show();
+		},function(){
+			if($(this).find('.file_select').is(':checked'))
+				$(this).find('.file_option').hide();
+			else
+				$(this).find('.file_option, .file_select').hide();
+		}
+	);
+	$('.ol_files li.file_item .file_select').click(function(){
+		if(this.checked){
+			$(this).parent().addClass('file_item_selected');
+		}else{
+			$(this).parent().removeClass('file_item_selected');
+		}
+	});
+</script>

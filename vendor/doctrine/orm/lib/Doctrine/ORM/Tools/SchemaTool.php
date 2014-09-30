@@ -20,6 +20,7 @@
 namespace Doctrine\ORM\Tools;
 
 use Doctrine\ORM\ORMException;
+use Doctrine\DBAL\Types\Type;
 use Doctrine\DBAL\Schema\Comparator;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Schema\Table;
@@ -27,6 +28,7 @@ use Doctrine\DBAL\Schema\Visitor\DropSchemaSqlCollector;
 use Doctrine\DBAL\Schema\Visitor\RemoveNamespacedAssets;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Internal\CommitOrderCalculator;
 use Doctrine\ORM\Tools\Event\GenerateSchemaTableEventArgs;
 use Doctrine\ORM\Tools\Event\GenerateSchemaEventArgs;
 
@@ -124,7 +126,6 @@ class SchemaTool
         return (
             isset($processedClasses[$class->name]) ||
             $class->isMappedSuperclass ||
-            $class->isEmbeddedClass ||
             ($class->isInheritanceTypeSingleTable() && $class->name != $class->rootEntityName)
         );
     }
@@ -264,11 +265,7 @@ class SchemaTool
 
             if (isset($class->table['indexes'])) {
                 foreach ($class->table['indexes'] as $indexName => $indexData) {
-                    if( ! isset($indexData['flags'])) {
-                        $indexData['flags'] = array();
-                    }
-                    
-                    $table->addIndex($indexData['columns'], is_numeric($indexName) ? null : $indexName, (array)$indexData['flags']);
+                    $table->addIndex($indexData['columns'], is_numeric($indexName) ? null : $indexName);
                 }
             }
 

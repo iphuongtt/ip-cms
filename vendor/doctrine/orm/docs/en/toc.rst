@@ -16,7 +16,6 @@ Tutorials
    tutorials/ordered-associations
    tutorials/override-field-association-mappings-in-subclasses
    tutorials/pagination.rst
-   tutorials/embeddables.rst
 
 Reference Guide
 ---------------
@@ -54,14 +53,10 @@ Reference Guide
    reference/metadata-drivers
    reference/best-practices
    reference/limitations-and-known-issues
-   tutorials/pagination
-   reference/filters
-   reference/namingstrategy
-   reference/installation
-   reference/advanced-configuration
-   reference/second-level-cache
-   reference/security
-   
+   reference/filters.rst
+   reference/namingstrategy.rst
+   reference/advanced-configuration.rst
+
 
 Cookbook
 --------

@@ -1,0 +1,133 @@
+<?php echo $this->doctype(); ?>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle('ZF2 '. $this->translate('Skeleton Application'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+            ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+            ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+                        ->prependStylesheet($this->basePath() . '/css/Media/media.css')
+                        ->prependStylesheet($this->basePath() . '/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/js/ip_tree/css/style.css')
+                        ->prependStylesheet($this->basePath() . '/js/jquery_contextmenu/contextmenu.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap-theme.min.css')
+                        ->prependStylesheet($this->basePath() . '/css/bootstrap.min.css') ?>
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">IP-Hệ Quản Trị Nội Dung</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="<?php echo $this->url('admin/default', array('controller' => 'index')) ?>">Quản trị</a></li>
+            <li><a href="#">Settings</a></li>
+            <li><a href="<?php echo $this->url('admin/default', array('controller' => 'profile')) ?>">Profile</a></li>
+            <li><a href="<?php echo $this->url('login/default', array('controller' => 'index', 'action'=>'logout')) ?>">Thoát</a></li>
+            <li><a href="#">Help</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar sidebar-extent">
+          <ul class="nav nav-sidebar">
+            <li class="active dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <span class="glyphicon glyphicon-dashboard"></span> Quản trị
+              </a>
+            </li>
+            <li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-pushpin"></span> Bài viết</a>
+              <ul class="dropdown-menu dropdown-menu-extent" role="menu">
+                <li><a href="#">Danh sách</a></li>
+                <li><a href="#">Thêm mới</a></li>
+              </ul>
+            </li>
+            <li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-list"></span> Chuyên mục</a>
+              <ul class="dropdown-menu dropdown-menu-extent" role="menu">
+                <li><a href="<?php echo $this->url('admin/default', array('controller' => 'category', 'action'=>'index')) ?>">Danh sách</a></li>
+                <li><a href="<?php echo $this->url('admin/default', array('controller' => 'category', 'action'=>'add')) ?>">Thêm mới</a></li>
+              </ul>
+            </li>
+            <li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-tags"></span> Tag</a>
+              <ul class="dropdown-menu dropdown-menu-extent" role="menu">
+                <li><a href="#">Danh sách</a></li>
+                <li><a href="#">Thêm mới</a></li>
+              </ul>
+            </li>
+            <li><a href="<?php echo $this->url('media/default', array('controller' => 'index', 'action'=>'index')) ?>"><span class="glyphicon glyphicon-cog"></span> Cài đặt</a></li>
+            <li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-book"></span> Trang</a>
+              <ul class="dropdown-menu dropdown-menu-extent" role="menu">
+                <li><a href="#">Danh sách</a></li>
+                <li><a href="#">Thêm mới</a></li>
+              </ul>
+            </li>
+            <li><a href="#"><span class="glyphicon glyphicon-comment"></span> Bình luận</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-user"></span> Người sử dụng</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-globe"></span> Template</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-cog"></span> Cài đặt</a></li>
+            <li><a class = "menu-collapse" href="#"><span class="glyphicon glyphicon-arrow-left"></span> Thu gọn</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-1 sidebar sidebar-collapse">
+          <ul class="nav nav-sidebar">
+            <li class="active"><a href="#"><span class="glyphicon glyphicon-dashboard"></span></a></li>
+            <li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-pushpin"></span></a>
+              <ul class="dropdown-menu dropdown-menu-collapse" role="menu">
+                <li  role="presentation"  class="active"><a href="#">Bài viết</a></li>
+                <li role="presentation" class="divider"></li>
+                <li><a href="#">Danh sách</a></li>
+                <li><a href="#">Thêm mới</a></li>
+              </ul>
+            </li>
+            <li><a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-list"></span></a>
+                <ul class="dropdown-menu dropdown-menu-collapse" role="menu">
+                <li  role="presentation"  class="active"><a href="#">Chuyên mục</a></li>
+                <li role="presentation" class="divider"></li>
+                <li><a href="#">Danh sách</a></li>
+                <li><a href="#">Thêm mới</a></li>
+              </ul>
+            </li>
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Tags"><span class="glyphicon glyphicon-tags"></span></a></li>
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Media"><span class="glyphicon glyphicon-picture"></span></a></li>
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Trang"><span class="glyphicon glyphicon-book"></span></a></li>
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Bình luận"><span class="glyphicon glyphicon-comment"></span></a></li>
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Người sử dụng"><span class="glyphicon glyphicon-user"></span></a></li>
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Giao diện"><span class="glyphicon glyphicon-globe"></span></a></li>
+            <li><a href="#" class="tip" data-toggle="tooltip" data-placement="top" title="Cài đặt"><span class="glyphicon glyphicon-cog"></span></a></li>
+            <li><a class = "menu-extent" href="#"><span class="glyphicon glyphicon-arrow-right"></span></a></li>
+          </ul>
+        </div>
+    <div class="container-fluid container-content">
+    <?php echo $this->content;?>
+    </div>
+        <!-- /container -->
+        <!-- Scripts -->
+        <?php echo $this->headScript()
+            ->prependFile($this->basePath() . '/js/main.js')
+            ->prependFile($this->basePath() . '/js/bootstrap.min.js')
+            ->prependFile($this->basePath() . '/js/holder.js')
+            ->prependFile($this->basePath() . '/js/ip_tree/js/ip_tree.js',   'text/javascript')
+            ->prependFile($this->basePath() . '/js/jquery_contextmenu/jquery.contextmenu.js',   'text/javascript')
+            ->prependFile($this->basePath() . '/js/jquery.min.js')
+            ->prependFile($this->basePath() . '/js/respond.min.js', 'text/javascript', array('conditional' => 'lt IE 9',))
+            ->prependFile($this->basePath() . '/js/html5shiv.js',   'text/javascript', array('conditional' => 'lt IE 9',))
+        ; ?>
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

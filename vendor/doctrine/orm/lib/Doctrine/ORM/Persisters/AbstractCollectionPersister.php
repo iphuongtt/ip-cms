@@ -19,7 +19,6 @@
 
 namespace Doctrine\ORM\Persisters;
 
-use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\PersistentCollection;
 
@@ -29,7 +28,7 @@ use Doctrine\ORM\PersistentCollection;
  * @since 2.0
  * @author Roman Borschel <roman@code-factory.org>
  */
-abstract class AbstractCollectionPersister implements CollectionPersister
+abstract class AbstractCollectionPersister
 {
     /**
      * @var EntityManager
@@ -52,7 +51,7 @@ abstract class AbstractCollectionPersister implements CollectionPersister
      * @var \Doctrine\DBAL\Platforms\AbstractPlatform
      */
     protected $platform;
-
+    
     /**
      * The quote strategy.
      *
@@ -75,7 +74,11 @@ abstract class AbstractCollectionPersister implements CollectionPersister
     }
 
     /**
-     * {@inheritdoc}
+     * Deletes the persistent state represented by the given collection.
+     *
+     * @param \Doctrine\ORM\PersistentCollection $coll
+     *
+     * @return void
      */
     public function delete(PersistentCollection $coll)
     {
@@ -85,7 +88,9 @@ abstract class AbstractCollectionPersister implements CollectionPersister
             return; // ignore inverse side
         }
 
-        $this->conn->executeUpdate($this->getDeleteSQL($coll), $this->getDeleteSQLParameters($coll));
+        $sql = $this->getDeleteSQL($coll);
+
+        $this->conn->executeUpdate($sql, $this->getDeleteSQLParameters($coll));
     }
 
     /**
@@ -108,7 +113,12 @@ abstract class AbstractCollectionPersister implements CollectionPersister
     abstract protected function getDeleteSQLParameters(PersistentCollection $coll);
 
     /**
-     * {@inheritdoc}
+     * Updates the given collection, synchronizing its state with the database
+     * by inserting, updating and deleting individual elements.
+     *
+     * @param \Doctrine\ORM\PersistentCollection $coll
+     *
+     * @return void
      */
     public function update(PersistentCollection $coll)
     {
@@ -123,7 +133,11 @@ abstract class AbstractCollectionPersister implements CollectionPersister
     }
 
     /**
-     * {@inheritdoc}
+     * Deletes rows.
+     *
+     * @param \Doctrine\ORM\PersistentCollection $coll
+     *
+     * @return void
      */
     public function deleteRows(PersistentCollection $coll)
     {
@@ -136,7 +150,11 @@ abstract class AbstractCollectionPersister implements CollectionPersister
     }
 
     /**
-     * {@inheritdoc}
+     * Inserts rows.
+     *
+     * @param \Doctrine\ORM\PersistentCollection $coll
+     *
+     * @return void
      */
     public function insertRows(PersistentCollection $coll)
     {
@@ -149,7 +167,13 @@ abstract class AbstractCollectionPersister implements CollectionPersister
     }
 
     /**
-     * {@inheritdoc}
+     * Counts the size of this persistent collection.
+     *
+     * @param \Doctrine\ORM\PersistentCollection $coll
+     * 
+     * @return integer
+     *
+     * @throws \BadMethodCallException
      */
     public function count(PersistentCollection $coll)
     {
@@ -157,7 +181,15 @@ abstract class AbstractCollectionPersister implements CollectionPersister
     }
 
     /**
-     * {@inheritdoc}
+     * Slices elements.
+     *
+     * @param \Doctrine\ORM\PersistentCollection $coll
+     * @param integer                            $offset
+     * @param integer                            $length
+     *
+     * @return  array
+     *
+     * @throws \BadMethodCallException
      */
     public function slice(PersistentCollection $coll, $offset, $length = null)
     {
@@ -165,7 +197,14 @@ abstract class AbstractCollectionPersister implements CollectionPersister
     }
 
     /**
-     * {@inheritdoc}
+     * Checks for existence of an element.
+     *
+     * @param \Doctrine\ORM\PersistentCollection $coll
+     * @param object                             $element
+     *
+     * @return boolean
+     *
+     * @throws \BadMethodCallException
      */
     public function contains(PersistentCollection $coll, $element)
     {
@@ -173,7 +212,14 @@ abstract class AbstractCollectionPersister implements CollectionPersister
     }
 
     /**
-     * {@inheritdoc}
+     * Checks for existence of a key.
+     *
+     * @param \Doctrine\ORM\PersistentCollection $coll
+     * @param mixed                              $key
+     *
+     * @return boolean
+     *
+     * @throws \BadMethodCallException
      */
     public function containsKey(PersistentCollection $coll, $key)
     {
@@ -181,7 +227,14 @@ abstract class AbstractCollectionPersister implements CollectionPersister
     }
 
     /**
-     * {@inheritdoc}
+     * Removes an element.
+     *
+     * @param \Doctrine\ORM\PersistentCollection $coll
+     * @param object                             $element
+     *
+     * @return mixed
+     *
+     * @throws \BadMethodCallException
      */
     public function removeElement(PersistentCollection $coll, $element)
     {
@@ -189,7 +242,14 @@ abstract class AbstractCollectionPersister implements CollectionPersister
     }
 
     /**
-     * {@inheritdoc}
+     * Removes an element by key.
+     *
+     * @param \Doctrine\ORM\PersistentCollection $coll
+     * @param mixed                              $key
+     *
+     * @return void
+     *
+     * @throws \BadMethodCallException
      */
     public function removeKey(PersistentCollection $coll, $key)
     {
@@ -197,19 +257,18 @@ abstract class AbstractCollectionPersister implements CollectionPersister
     }
 
     /**
-     * {@inheritdoc}
+     * Gets an element by key.
+     * 
+     * @param \Doctrine\ORM\PersistentCollection $coll
+     * @param mixed                              $index
+     * 
+     * @return mixed
+     *
+     * @throws \BadMethodCallException
      */
     public function get(PersistentCollection $coll, $index)
     {
         throw new \BadMethodCallException("Selecting a collection by index is not supported by this CollectionPersister.");
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function loadCriteria(PersistentCollection $coll, Criteria $criteria)
-    {
-        throw new \BadMethodCallException("Filtering a collection by Criteria is not supported by this CollectionPersister.");
     }
 
     /**

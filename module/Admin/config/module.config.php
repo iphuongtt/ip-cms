@@ -1,4 +1,5 @@
 <?php
+namespace Admin;
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -20,33 +21,6 @@ return array(
                     ),
                 ),
             ),
-            'login' => array(
-                'type' => 'Literal',
-                'options' => array(
-                    'route'    => '/login',
-                    'defaults' => array(
-                        'controller' => 'Admin\Controller\Login',
-                        'action'     => 'index',
-                    ),
-                ),
-            ),
-            'category-list' => array(
-                'type'    => 'segment',
-                'options' => array(
-                    'route'    => '/admin/login/test[/status/:status][/page/:page][/perPage/:perPage][/sortBy/:sortBy][/sortDir/:sortDir][/filterLetter/:filterLetter]',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Admin\Controller',
-                        'controller'    => 'Login',
-                        'action'        => 'test',
-                        'status' => 'all',
-                        'page' => 1,
-                        'perPage' => 10,
-                        'sortBy' => "category-name",
-                        'sortDir' => "asc",
-                        'filterLetter' => "",
-                    ),
-                ),
-            ), 
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -66,7 +40,7 @@ return array(
                     'default' => array(
                         'type'    => 'Segment',
                         'options' => array(
-                            'route'    => '/[:controller[/:action]]',
+                            'route'    => '/[:controller[/:action][/:id]]',
                             'constraints' => array(
                                 'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
                                 'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
@@ -75,6 +49,16 @@ return array(
                             ),
                         ),
                     ),
+                    'login' => array( 
+                         'type' => 'Segment', 
+                         'options' => array( 
+                             'route' => 'login', 
+                             'defaults' => array( 
+                                 'controller' => 'Admin\Controller\Login', 
+                                 'action'     => 'index', 
+                             ), 
+                         ), 
+                     ), 
                 ),
             ),
         ),
@@ -102,6 +86,9 @@ return array(
         'invokables' => array(
             'Admin\Controller\Index' => 'Admin\Controller\IndexController',
             'Admin\Controller\Login' => 'Admin\Controller\LoginController',
+            'Admin\Controller\Profile' => 'Admin\Controller\ProfileController',
+            'Admin\Controller\Category' => 'Admin\Controller\CategoryController',
+            'Admin\Controller\Media' => 'Admin\Controller\MediaController',
         ),
     ),
     'view_manager' => array(
@@ -127,5 +114,21 @@ return array(
             'routes' => array(
             ),
         ),
+    ),
+    'doctrine' => array(
+        'driver' => array(
+            __NAMESPACE__ . '_driver' => array(
+                'class' => 'Doctrine\ORM\Mapping\Driver\AnnotationDriver',
+                'cache' => 'array',
+                'paths' => array(
+                    __DIR__ . '/../src/' . __NAMESPACE__ . '/Entity',
+                ),
+            ),
+            'orm_default' => array(
+                'drivers' => array(
+                    __NAMESPACE__ . '\Entity' => __NAMESPACE__ . '_driver',
+                )
+            )
+        )
     ),
 );

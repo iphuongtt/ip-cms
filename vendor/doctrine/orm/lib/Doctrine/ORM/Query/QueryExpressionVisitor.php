@@ -26,6 +26,9 @@ use Doctrine\Common\Collections\Expr\Comparison;
 use Doctrine\Common\Collections\Expr\CompositeExpression;
 use Doctrine\Common\Collections\Expr\Value;
 
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Query\Parameter;
+
 /**
  * Converts Collection expressions to Query expressions.
  *
@@ -132,14 +135,6 @@ class QueryExpressionVisitor extends ExpressionVisitor
     public function walkComparison(Comparison $comparison)
     {
         $parameterName = str_replace('.', '_', $comparison->getField());
-
-        foreach($this->parameters as $parameter) {
-            if($parameter->getName() === $parameterName) {
-                $parameterName .= '_' . count($this->parameters);
-                break;
-            }
-        }
-
         $parameter = new Parameter($parameterName, $this->walkValue($comparison->getValue()));
         $placeholder = ':' . $parameterName;
 
@@ -166,11 +161,6 @@ class QueryExpressionVisitor extends ExpressionVisitor
                 }
                 $this->parameters[] = $parameter;
                 return $this->expr->neq($this->rootAlias . '.' . $comparison->getField(), $placeholder);
-
-            case Comparison::CONTAINS:
-                $parameter->setValue('%' . $parameter->getValue() . '%', $parameter->getType());
-                $this->parameters[] = $parameter;
-                return $this->expr->like($this->rootAlias . '.' . $comparison->getField(), $placeholder);
 
             default:
                 $operator = self::convertComparisonOperator($comparison->getOperator());

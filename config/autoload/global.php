@@ -18,7 +18,7 @@ return array(
     	'username'=>'iphuong',
     	'password'=>'admin',
     	'driver_options'=>array(
-    		PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES \'UTF8\''
+    	#	PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES \'UTF8\''
     	),
     ),
     'service_manager'=>array(

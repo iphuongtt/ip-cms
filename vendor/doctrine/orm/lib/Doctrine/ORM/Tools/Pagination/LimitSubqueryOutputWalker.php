@@ -16,6 +16,7 @@ namespace Doctrine\ORM\Tools\Pagination;
 use Doctrine\ORM\Query\SqlWalker;
 use Doctrine\ORM\Query\AST\SelectStatement;
 use Doctrine\DBAL\Platforms\PostgreSqlPlatform;
+use Doctrine\DBAL\Platforms\OraclePlatform;
 
 /**
  * Wraps the query in order to select root entity IDs for pagination.
@@ -148,10 +149,6 @@ class LimitSubqueryOutputWalker extends SqlWalker
             }
         }
 
-        if (count($sqlIdentifier) === 0) {
-            throw new \RuntimeException('The Paginator does not support Queries which only yield ScalarResults.');
-        }
-
         if (count($rootIdentifier) != count($sqlIdentifier)) {
             throw new \RuntimeException(sprintf(
                 'Not all identifier properties can be found in the ResultSetMapping: %s',
@@ -211,7 +208,7 @@ class LimitSubqueryOutputWalker extends SqlWalker
                     }
                 }
             }
-            // remove identifier aliases
+            //remove identifier aliases
             $sqlOrderColumns = array_diff($sqlOrderColumns, $sqlIdentifier);
         }
 

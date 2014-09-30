@@ -156,8 +156,6 @@ Here is a complete list of helper methods available in ``QueryBuilder``:
         // Example - $qb->where('u.firstName = ?1 AND u.surname = ?2')
         public function where($where);
 
-        // NOTE: ->andWhere() can be used directly, without any ->where() before
-        //
         // Example - $qb->andWhere($qb->expr()->orX($qb->expr()->lte('u.age', 40), 'u.numChild = 0'))
         public function andWhere($where);
 
@@ -210,7 +208,7 @@ allowed. Binding parameters can simply be achieved as follows:
     $qb->select('u')
        ->from('User u')
        ->where('u.id = ?1')
-       ->orderBy('u.name', 'ASC')
+       ->orderBy('u.name', 'ASC');
        ->setParameter(1, 100); // Sets ?1 to 100, and thus we will fetch a user with u.id = 100
 
 You are not forced to enumerate your placeholders as the
@@ -224,7 +222,7 @@ alternative syntax is available:
     $qb->select('u')
        ->from('User u')
        ->where('u.id = :identifier')
-       ->orderBy('u.name', 'ASC')
+       ->orderBy('u.name', 'ASC');
        ->setParameter('identifier', 100); // Sets :identifier to 100, and thus we will fetch a user with u.id = 100
 
 Note that numeric placeholders start with a ? followed by a number
@@ -338,8 +336,7 @@ set of useful methods to help build expressions:
     <?php
     // $qb instanceof QueryBuilder
 
-    // example8: QueryBuilder port of:
-    // "SELECT u FROM User u WHERE u.id = ? OR u.nickname LIKE ? ORDER BY u.name ASC" using Expr class
+    // example8: QueryBuilder port of: "SELECT u FROM User u WHERE u.id = ? OR u.nickname LIKE ? ORDER BY u.surname DESC" using Expr class
     $qb->add('select', new Expr\Select(array('u')))
        ->add('from', new Expr\From('User', 'u'))
        ->add('where', $qb->expr()->orX(
@@ -436,9 +433,6 @@ complete list of supported helper methods available:
         // Example - $qb->expr()->like('u.firstname', $qb->expr()->literal('Gui%'))
         public function like($x, $y); // Returns Expr\Comparison instance
 
-        // Example - $qb->expr()->notLike('u.firstname', $qb->expr()->literal('Gui%'))
-        public function notLike($x, $y); // Returns Expr\Comparison instance
-
         // Example - $qb->expr()->between('u.id', '1', '10')
         public function between($val, $x, $y); // Returns Expr\Func
 
@@ -451,8 +445,8 @@ complete list of supported helper methods available:
         // Example - $qb->expr()->concat('u.firstname', $qb->expr()->concat($qb->expr()->literal(' '), 'u.lastname'))
         public function concat($x, $y); // Returns Expr\Func
 
-        // Example - $qb->expr()->substring('u.firstname', 0, 1)
-        public function substring($x, $from, $len); // Returns Expr\Func
+        // Example - $qb->expr()->substr('u.firstname', 0, 1)
+        public function substr($x, $from, $len); // Returns Expr\Func
 
         // Example - $qb->expr()->lower('u.firstname')
         public function lower($x); // Returns Expr\Func
@@ -516,9 +510,7 @@ of DQL. It takes 3 parameters: ``$dqlPartName``, ``$dqlPart`` and
     <?php
     // $qb instanceof QueryBuilder
 
-    // example6: how to define:
-    // "SELECT u FROM User u WHERE u.id = ? ORDER BY u.name ASC"
-    // using QueryBuilder string support
+    // example6: how to define: "SELECT u FROM User u WHERE u.id = ? ORDER BY u.name ASC" using QueryBuilder string support
     $qb->add('select', 'u')
        ->add('from', 'User u')
        ->add('where', 'u.id = ?1')
@@ -537,9 +529,7 @@ same query of example 6 written using
    <?php
    // $qb instanceof QueryBuilder
 
-   // example7: how to define:
-   // "SELECT u FROM User u WHERE u.id = ? ORDER BY u.name ASC"
-   // using QueryBuilder using Expr\* instances
+   // example7: how to define: "SELECT u FROM User u WHERE u.id = ? ORDER BY u.name ASC" using QueryBuilder using Expr\* instances
    $qb->add('select', new Expr\Select(array('u')))
       ->add('from', new Expr\From('User', 'u'))
       ->add('where', new Expr\Comparison('u.id', '=', '?1'))

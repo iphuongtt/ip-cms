@@ -1,0 +1,17 @@
+<?php
+if($this->files){?>
+<ol class = "ol_files"><?php
+	foreach ($this->files as $key => $value) {?>
+	<li class = "file_item_list">
+		<input type = "checkbox" class = "file_select_list" />
+		<span class = "folder_icon_list"></span>
+		<span class = "file_name_list"><?php echo $value->getFileName();?></span>
+	</li>
+	<?php
+	}
+}
+?>
+</ol>
+<script type = "text/javascript">
+
+</script>

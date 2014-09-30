@@ -30,8 +30,8 @@ class EntityNotFoundException extends ORMException
     /**
      * Constructor.
      */
-    public function __construct($class)
+    public function __construct()
     {
-        parent::__construct("Entity of type '{$class}' was not found.");
+        parent::__construct('Entity was not found.');
     }
 }

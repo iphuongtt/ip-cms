@@ -11,31 +11,28 @@ namespace Admin;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
-use ip\View\Helper\ListViewToolbar;
 use Zend\Session\Config\SessionConfig;
 use Zend\Session\Container;
 use Zend\Session\SessionManager;
-
-use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
-use Zend\Authentication\Storage;
-use Zend\Authentication\AuthenticationService;
-use Zend\Authentication\Adapter\DbTable as DbTableAuthAdapter;
-class Module
+use Admin\Form\categoryForm;
+use Zend\ModuleManager\Feature\FormElementProviderInterface;
+class Module implements FormElementProviderInterface
 {
     public function onBootstrap(MvcEvent $e)
     {
         $eventManager        = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
-        $this->initSession(array(
+        /*$this->initSession(array(
             'remember_me_seconds' => 180,
             'use_cookies' => true,
             'cookie_httponly' => true,
             'validators' => array(
                 'Zend\Session\Validator\RemoteAddr',
                 'Zend\Session\Validator\HttpUserAgent',
-            )
-        ));
+            ),
+        ));*/
+        $this->checklogin($e);
     }
 
     public function getConfig()
@@ -60,21 +57,52 @@ class Module
         $sessionManager->start();
         Container::setDefaultManager($sessionManager);
     }
-    public function getServiceConfig(){
+    public function checklogin($e){
+        $sm = $e->getApplication()->getServiceManager();
+        $e->getApplication()->getEventManager()->getSharedManager()->attach('Zend\Mvc\Controller\AbstractController', 'dispatch', function($e) use($sm) {
+            $controller      = $e->getTarget();
+            $classController = get_class($controller);
+            $auth = $sm->get('Zend\Authentication\AuthenticationService');
+            if (!$auth->hasIdentity() && $classController != 'Login\Controller\IndexController') {
+                $router = $e->getRouter();
+                $url = $router->assemble(array(), array('name' => 'login'));
+                $response = $e->getResponse();
+                $response->getHeaders()->addHeaderLine('Location', $url);
+                $response->setStatusCode(302);
+                return $response;
+            }
+        }, PHP_INT_MAX);
+    }
+    public function getViewHelperConfig(){
         return array(
-            'factories'=>array(
-            'Admin\Model\LoginStorage' => function($sm){
-                return new \Admin\Model\LoginStorage('session_login');  
-            },
-            'AuthService' => function($sm) {
-                $dbAdapter  = $sm->get('Zend\Db\Adapter\Adapter');
-                $dbTableAuthAdapter  = new DbTableAuthAdapter($dbAdapter, 'ip_users','user_login','user_pass', 'MD5(?)');
-                $authService = new AuthenticationService();
-                $authService->setAdapter($dbTableAuthAdapter);
-                $authService->setStorage($sm->get('Admin\Model\LoginStorage'));  
-                return $authService;
-            },
-                ),
+            'factories' => array(
+                'form_horizontal'=>function($sm){
+                    $helper = new View\Helper\formHorizontal;
+                    return $helper;
+                }
+                ,'FormSelectUnEscape'=>function($sm){
+                    $helper = new View\Helper\FormSelectUnEscape;
+                    return $helper;
+                }
+                ,'rowAction'=>function($sm){
+                    $helper = new View\Helper\rowAction;
+                    return $helper;
+                }
+            )
+        );
+    }
+
+    public function getFormElementConfig()
+    {
+        return array(
+            'factories' => array(
+                'CategoryForm' => function($sm) {
+                        $serviceLocator = $sm->getServiceLocator();
+                        $entityManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
+                        $form = new categoryForm($entityManager);
+                        return $form;
+                    }
+            )
         );
     }
 }

@@ -133,9 +133,7 @@ class EntityGenerator
     protected $regenerateEntityIfExists = false;
 
     /**
-     * Visibility of the field
-     *
-     * @var string
+     * @var boolean
      */
     protected $fieldVisibility = 'private';
 
@@ -204,7 +202,9 @@ class EntityGenerator
 '<?php
 
 <namespace>
-<useStatement>
+
+use Doctrine\ORM\Mapping as ORM;
+
 <entityAnnotation>
 <entityClassName>
 {
@@ -233,8 +233,7 @@ public function <methodName>()
 '/**
  * <description>
  *
- * @param <variableType> $<variableName>
- *
+ * @param <variableType>$<variableName>
  * @return <entity>
  */
 public function <methodName>(<methodTypeHint>$<variableName><variableDefault>)
@@ -251,8 +250,7 @@ public function <methodName>(<methodTypeHint>$<variableName><variableDefault>)
 '/**
  * <description>
  *
- * @param <variableType> $<variableName>
- *
+ * @param <variableType>$<variableName>
  * @return <entity>
  */
 public function <methodName>(<methodTypeHint>$<variableName>)
@@ -269,7 +267,7 @@ public function <methodName>(<methodTypeHint>$<variableName>)
 '/**
  * <description>
  *
- * @param <variableType> $<variableName>
+ * @param <variableType>$<variableName>
  */
 public function <methodName>(<methodTypeHint>$<variableName>)
 {
@@ -380,7 +378,6 @@ public function __construct()
     {
         $placeHolders = array(
             '<namespace>',
-            '<useStatement>',
             '<entityAnnotation>',
             '<entityClassName>',
             '<entityBody>'
@@ -388,13 +385,12 @@ public function __construct()
 
         $replacements = array(
             $this->generateEntityNamespace($metadata),
-            $this->generateEntityUse(),
             $this->generateEntityDocBlock($metadata),
             $this->generateEntityClassName($metadata),
             $this->generateEntityBody($metadata)
         );
 
-        $code = str_replace($placeHolders, $replacements, static::$classTemplate) . "\n";
+        $code = str_replace($placeHolders, $replacements, self::$classTemplate);
 
         return str_replace('<spaces>', $this->spaces, $code);
     }
@@ -415,7 +411,7 @@ public function __construct()
         $body = str_replace('<spaces>', $this->spaces, $body);
         $last = strrpos($currentCode, '}');
 
-        return substr($currentCode, 0, $last) . $body . (strlen($body) > 0 ? "\n" : '') . "}\n";
+        return substr($currentCode, 0, $last) . $body . (strlen($body) > 0 ? "\n" : ''). "}\n";
     }
 
     /**
@@ -478,7 +474,7 @@ public function __construct()
      */
     public function setFieldVisibility($visibility)
     {
-        if ($visibility !== static::FIELD_VISIBLE_PRIVATE && $visibility !== static::FIELD_VISIBLE_PROTECTED) {
+        if ($visibility !== self::FIELD_VISIBLE_PRIVATE && $visibility !== self::FIELD_VISIBLE_PROTECTED) {
             throw new \InvalidArgumentException('Invalid provided visibility (only private and protected are allowed): ' . $visibility);
         }
 
@@ -571,15 +567,6 @@ public function __construct()
         }
     }
 
-    protected function generateEntityUse()
-    {
-        if ($this->generateAnnotations) {
-            return "\n".'use Doctrine\ORM\Mapping as ORM;'."\n";
-        } else {
-            return "";
-        }
-    }
-
     /**
      * @param ClassMetadataInfo $metadata
      *
@@ -646,7 +633,7 @@ public function __construct()
         }
 
         if ($collections) {
-            return $this->prefixCodeWithSpaces(str_replace("<collections>", implode("\n".$this->spaces, $collections), static::$constructorMethodTemplate));
+            return $this->prefixCodeWithSpaces(str_replace("<collections>", implode("\n".$this->spaces, $collections), self::$constructorMethodTemplate));
         }
 
         return '';
@@ -696,9 +683,9 @@ public function __construct()
                 $inClass = true;
             } elseif ($token[0] == T_FUNCTION) {
                 if ($tokens[$i+2][0] == T_STRING) {
-                    $this->staticReflection[$lastSeenClass]['methods'][] = strtolower($tokens[$i+2][1]);
+                    $this->staticReflection[$lastSeenClass]['methods'][] = $tokens[$i+2][1];
                 } elseif ($tokens[$i+2] == "&" && $tokens[$i+3][0] == T_STRING) {
-                    $this->staticReflection[$lastSeenClass]['methods'][] = strtolower($tokens[$i+3][1]);
+                    $this->staticReflection[$lastSeenClass]['methods'][] = $tokens[$i+3][1];
                 }
             } elseif (in_array($token[0], array(T_VAR, T_PUBLIC, T_PRIVATE, T_PROTECTED)) && $tokens[$i+2][0] != T_FUNCTION) {
                 $this->staticReflection[$lastSeenClass]['properties'][] = substr($tokens[$i+2][1], 1);
@@ -714,17 +701,10 @@ public function __construct()
      */
     protected function hasProperty($property, ClassMetadataInfo $metadata)
     {
-        if ($this->extendsClass() || class_exists($metadata->name)) {
+        if ($this->extendsClass()) {
             // don't generate property if its already on the base class.
-            $reflClass = new \ReflectionClass($this->getClassToExtend() ?: $metadata->name);
+            $reflClass = new \ReflectionClass($this->getClassToExtend());
             if ($reflClass->hasProperty($property)) {
-                return true;
-            }
-        }
-
-        // check traits for existing property
-        foreach ($this->getTraits($metadata) as $trait) {
-            if ($trait->hasProperty($property)) {
                 return true;
             }
         }
@@ -743,52 +723,19 @@ public function __construct()
      */
     protected function hasMethod($method, ClassMetadataInfo $metadata)
     {
-        if ($this->extendsClass() || class_exists($metadata->name)) {
+        if ($this->extendsClass()) {
             // don't generate method if its already on the base class.
-            $reflClass = new \ReflectionClass($this->getClassToExtend() ?: $metadata->name);
+            $reflClass = new \ReflectionClass($this->getClassToExtend());
 
             if ($reflClass->hasMethod($method)) {
                 return true;
             }
         }
 
-        // check traits for existing method
-        foreach ($this->getTraits($metadata) as $trait) {
-            if ($trait->hasMethod($method)) {
-                return true;
-            }
-        }
-
         return (
             isset($this->staticReflection[$metadata->name]) &&
-            in_array(strtolower($method), $this->staticReflection[$metadata->name]['methods'])
+            in_array($method, $this->staticReflection[$metadata->name]['methods'])
         );
-    }
-
-    /**
-     * @param ClassMetadataInfo $metadata
-     *
-     * @return array
-     */
-    protected function getTraits(ClassMetadataInfo $metadata)
-    {
-        if (PHP_VERSION_ID >= 50400 && ($metadata->reflClass !== null || class_exists($metadata->name))) {
-            $reflClass = $metadata->reflClass === null
-                ? new \ReflectionClass($metadata->name)
-                : $metadata->reflClass;
-
-            $traits = array();
-
-            while ($reflClass !== false) {
-                $traits = array_merge($traits, $reflClass->getTraits());
-
-                $reflClass = $reflClass->getParentClass();
-            }
-
-            return $traits;
-        }
-
-        return array();
     }
 
     /**
@@ -910,10 +857,6 @@ public function __construct()
 
         if (isset($metadata->table['name'])) {
             $table[] = 'name="' . $metadata->table['name'] . '"';
-        }
-
-        if (isset($metadata->table['options']) && $metadata->table['options']) {
-            $table[] = 'options={' . $this->exportTableOptions((array) $metadata->table['options']) . '}';
         }
 
         if (isset($metadata->table['uniqueConstraints']) && $metadata->table['uniqueConstraints']) {
@@ -1149,23 +1092,21 @@ public function __construct()
     protected function generateEntityStubMethod(ClassMetadataInfo $metadata, $type, $fieldName, $typeHint = null,  $defaultValue = null)
     {
         $methodName = $type . Inflector::classify($fieldName);
-        $variableName = Inflector::camelize($fieldName);
         if (in_array($type, array("add", "remove"))) {
             $methodName = Inflector::singularize($methodName);
-            $variableName = Inflector::singularize($variableName);
         }
 
         if ($this->hasMethod($methodName, $metadata)) {
             return '';
         }
-        $this->staticReflection[$metadata->name]['methods'][] = strtolower($methodName);
+        $this->staticReflection[$metadata->name]['methods'][] = $methodName;
 
         $var = sprintf('%sMethodTemplate', $type);
-        $template = static::$$var;
+        $template = self::$$var;
 
         $methodTypeHint = null;
         $types          = Type::getTypesMap();
-        $variableType   = $typeHint ? $this->getType($typeHint) : null;
+        $variableType   = $typeHint ? $this->getType($typeHint) . ' ' : null;
 
         if ($typeHint && ! isset($types[$typeHint])) {
             $variableType   =  '\\' . ltrim($variableType, '\\');
@@ -1173,10 +1114,10 @@ public function __construct()
         }
 
         $replacements = array(
-          '<description>'       => ucfirst($type) . ' ' . $variableName . ".\n",
+          '<description>'       => ucfirst($type) . ' ' . $fieldName,
           '<methodTypeHint>'    => $methodTypeHint,
           '<variableType>'      => $variableType,
-          '<variableName>'      => $variableName,
+          '<variableName>'      => Inflector::camelize($fieldName),
           '<methodName>'        => $methodName,
           '<fieldName>'         => $fieldName,
           '<variableDefault>'   => ($defaultValue !== null ) ? (' = '.$defaultValue) : '',
@@ -1214,7 +1155,7 @@ public function __construct()
         $method = str_replace(
             array_keys($replacements),
             array_values($replacements),
-            static::$lifecycleCallbackMethodTemplate
+            self::$lifecycleCallbackMethodTemplate
         );
 
         return $this->prefixCodeWithSpaces($method);
@@ -1448,10 +1389,6 @@ public function __construct()
                 $column[] = 'nullable=' .  var_export($fieldMapping['nullable'], true);
             }
 
-            if (isset($fieldMapping['unsigned']) && $fieldMapping['unsigned']) {
-                $column[] = 'options={"unsigned"=true}';
-            }
-
             if (isset($fieldMapping['columnDefinition'])) {
                 $column[] = 'columnDefinition="' . $fieldMapping['columnDefinition'] . '"';
             }
@@ -1522,15 +1459,15 @@ public function __construct()
      *
      * @return string The literal string for the inheritance type.
      *
-     * @throws \InvalidArgumentException When the inheritance type does not exist.
+     * @throws \InvalidArgumentException When the inheritance type does not exists.
      */
     protected function getInheritanceTypeString($type)
     {
-        if ( ! isset(static::$inheritanceTypeMap[$type])) {
+        if ( ! isset(self::$inheritanceTypeMap[$type])) {
             throw new \InvalidArgumentException(sprintf('Invalid provided InheritanceType: %s', $type));
         }
 
-        return static::$inheritanceTypeMap[$type];
+        return self::$inheritanceTypeMap[$type];
     }
 
     /**
@@ -1538,15 +1475,15 @@ public function __construct()
      *
      * @return string The literal string for the change-tracking type.
      *
-     * @throws \InvalidArgumentException When the change-tracking type does not exist.
+     * @throws \InvalidArgumentException When the change-tracking type does not exists.
      */
     protected function getChangeTrackingPolicyString($type)
     {
-        if ( ! isset(static::$changeTrackingPolicyMap[$type])) {
+        if ( ! isset(self::$changeTrackingPolicyMap[$type])) {
             throw new \InvalidArgumentException(sprintf('Invalid provided ChangeTrackingPolicy: %s', $type));
         }
 
-        return static::$changeTrackingPolicyMap[$type];
+        return self::$changeTrackingPolicyMap[$type];
     }
 
     /**
@@ -1554,34 +1491,14 @@ public function __construct()
      *
      * @return string The literal string for the generator type.
      *
-     * @throws \InvalidArgumentException    When the generator type does not exist.
+     * @throws \InvalidArgumentException    When the generator type does not exists.
      */
     protected function getIdGeneratorTypeString($type)
     {
-        if ( ! isset(static::$generatorStrategyMap[$type])) {
+        if ( ! isset(self::$generatorStrategyMap[$type])) {
             throw new \InvalidArgumentException(sprintf('Invalid provided IdGeneratorType: %s', $type));
         }
 
-        return static::$generatorStrategyMap[$type];
-    }
-
-    /**
-     * Exports (nested) option elements.
-     *
-     * @param array $options
-     */
-    private function exportTableOptions(array $options)
-    {
-        $optionsStr = array();
-
-        foreach($options as $name => $option) {
-            if (is_array($option)) {
-                $optionsStr[] = '"' . $name . '"={' . $this->exportTableOptions($option) . '}';
-            } else {
-                $optionsStr[] = '"' . $name . '"="' . (string) $option . '"';
-            }
-        }
-
-        return implode(',', $optionsStr);
+        return self::$generatorStrategyMap[$type];
     }
 }

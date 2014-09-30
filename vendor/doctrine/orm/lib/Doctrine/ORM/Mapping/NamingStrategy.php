@@ -50,16 +50,6 @@ interface NamingStrategy
     function propertyToColumnName($propertyName, $className = null);
 
     /**
-     * Returns a column name for an embedded property.
-     *
-     * @param string $propertyName
-     * @param string $embeddedColumnName
-     *
-     * @return string
-     */
-    function embeddedFieldToColumnName($propertyName, $embeddedColumnName, $className = null, $embeddedClassName = null);
-
-    /**
      * Returns the default reference column name.
      *
      * @return string A column name.

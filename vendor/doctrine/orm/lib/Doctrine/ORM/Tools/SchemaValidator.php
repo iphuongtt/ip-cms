@@ -26,7 +26,7 @@ use Doctrine\DBAL\Types\Type;
 /**
  * Performs strict validation of the mapping schema
  *
- * @license     http://www.opensource.org/licenses/mit-license.php MIT
+ * @license     http://www.opensource.org/licenses/lgpl-license.php LGPL
  * @link        www.doctrine-project.com
  * @since       1.0
  * @author      Benjamin Eberlei <kontakt@beberlei.de>
@@ -124,7 +124,7 @@ class SchemaValidator
                     $ce[] = "The field " . $class->name . "#" . $fieldName . " is on the inverse side of a ".
                             "bi-directional relationship, but the specified mappedBy association on the target-entity ".
                             $assoc['targetEntity'] . "#" . $assoc['mappedBy'] . " does not contain the required ".
-                            "'inversedBy=\"" . $fieldName . "\"' attribute.";
+                            "'inversedBy=".$fieldName."' attribute.";
                 } elseif ($targetMetadata->associationMappings[$assoc['mappedBy']]['inversedBy'] != $fieldName) {
                     $ce[] = "The mappings " . $class->name . "#" . $fieldName . " and " .
                             $assoc['targetEntity'] . "#" . $assoc['mappedBy'] . " are ".
@@ -219,7 +219,7 @@ class SchemaValidator
                         }
 
                         $ce[] = "The join columns of the association '" . $assoc['fieldName'] . "' " .
-                                "have to match to ALL identifier columns of the target entity '". $targetMetadata->name . "', " .
+                                "have to match to ALL identifier columns of the target entity '". $class->name . "', " .
                                 "however '" . implode(", ", array_diff($targetMetadata->getIdentifierColumnNames(), $ids)) .
                                 "' are missing.";
                     }
@@ -234,6 +234,20 @@ class SchemaValidator
                     }
                 }
             }
+        }
+
+        foreach ($class->reflClass->getProperties(\ReflectionProperty::IS_PUBLIC) as $publicAttr) {
+            if ($publicAttr->isStatic()) {
+                continue;
+            }
+
+            if ( ! isset($class->fieldMappings[$publicAttr->getName()]) &&
+                ! isset($class->associationMappings[$publicAttr->getName()])) {
+                continue;
+            }
+
+            $ce[] = "Field '".$publicAttr->getName()."' in class '".$class->name."' must be private ".
+                    "or protected. Public fields may break lazy-loading.";
         }
 
         foreach ($class->subClasses as $subClass) {
